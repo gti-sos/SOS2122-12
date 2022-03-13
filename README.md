@@ -1,4 +1,4 @@
-## SOS2122-12
+# SOS2122-12
 
 - **Team**
   - [Alejandro Solís Mercado](https://github.com/AlexSolmer)
