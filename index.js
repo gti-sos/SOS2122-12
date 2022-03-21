@@ -73,3 +73,54 @@ app.delete(BASE_API_URL+"/pollution-stats/:country", (req,res)=>{
     });
     res.sendStatus(200,"OK");
 });
+
+// Francisco Javier Cerrada Begines
+var electricity_consumption_stats = [
+    {
+        country:"france",
+        year:2018,
+        electricity_generation:551.544,
+        electricity_consumption: 449.957,
+        per_capita_consumption:6.698,0
+
+    },
+    {
+        country:"china",
+        year:2018,
+        electricity_generation:6.801.933,
+        electricity_consumption: 645.119,
+        per_capita_consumption:4.590,9
+    }
+
+];
+app.get(BASE_API_URL+ "/electricity-consumption-stats",(req,res)=>{
+    res.send(JSON.stringify(electricity_consumption_stats,null,2)); 
+
+});
+app.get(BASE_API_URL+"/electricity-consumption-stats/:country", (req,res)=>{
+    var electricityCountry = req.params.country;
+    filteredElectricity = electricity_consumption_stats.filter((electricity)=>{
+        return (electricity.country == electricityCountry);
+    });
+
+    if(filteredElectricity == 0){
+        res.sendStatus(404,"NOT FOUND");
+    }else{
+        res.send(JSON.stringify(filteredElectricity[0],null,2));
+    }
+});
+app.post(BASE_API_URL+ "/electricity-consumption-stats",(req,res)=>{
+    electricity_consumption_stats.push(req.body);
+    res.sendStatus(201,"CREATED"); 
+});
+app.delete(BASE_API_URL+"/electricity-consumption-stats", (req,res)=>{
+    electricity_consumption_stats = [];
+    res.sendStatus(200,"OK");
+});
+app.delete(BASE_API_URL+"/electricity-consumption-stats/:country", (req,res)=>{
+    var electricityCountry = req.params.country;
+    electricity_consumption_stats = electricity_consumption_stats.filter((electricity)=>{
+        return (electricity.country != electricityCountry);
+    });
+    res.sendStatus(200,"OK");
+});
