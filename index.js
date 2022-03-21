@@ -79,17 +79,17 @@ var electricity_consumption_stats = [
     {
         country:"france",
         year:2018,
-        electricity_generation:551.544,
-        electricity_consumption: 449.957,
-        per_capita_consumption:6.698,0
+        electricity_generation:551544,
+        electricity_consumption: 449957,
+        per_capita_consumption:6698
 
     },
     {
         country:"china",
         year:2018,
-        electricity_generation:6.801.933,
-        electricity_consumption: 645.119,
-        per_capita_consumption:4.590,9
+        electricity_generation:6801933,
+        electricity_consumption: 645119,
+        per_capita_consumption:4590
     }
 
 ];
