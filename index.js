@@ -28,17 +28,17 @@ var pollution_stats = [
     {
         country:"EEUU",
         year:2019,
-        plastic_waste:17.792,
-        gaseous_waste: 5.036,
+        plastic_waste:17792,
+        gaseous_waste: 5036.047,
         collected_waste:323
 
     },
     {
         country:"Spain",
         year:2019,
-        plastic_waste:1.586,
+        plastic_waste:1586,
         gaseous_waste: 255.831,
-        collected_waste:616.736
+        collected_waste:616736
     }
 
 ];
