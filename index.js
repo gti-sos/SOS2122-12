@@ -26,7 +26,7 @@ app.listen(port, () =>{
 
 // Javier Vargas Algaba
 
-app.get(BASE_API_URL+ "/docs",(req,res)=>{
+app.get(BASE_API_URL+ "/pollution-stats/docs",(req,res)=>{
     res.redirect(API_DOC_PORTAL); 
 
 });
