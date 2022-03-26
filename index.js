@@ -24,24 +24,55 @@ app.listen(port, () =>{
 });
 
 // Javier Vargas Algaba
-var pollution_stats = [
-    {
-        country:"EEUU",
-        year:2019,
-        plastic_waste:17792,
-        gaseous_waste: 5036.047,
-        collected_waste:323
+var pollution_stats = [];
+app.get(BASE_API_URL + "/pollution-stats/loadInitialData", (req, res)=>{
+    var iniData = [
+        {
+            country:"eeuu",
+            year:2019,
+            plastic_waste:17792,
+            gaseous_waste: 5036.047,
+            collected_waste:323
+    
+        },
+        {
+            country:"spain",
+            year:2019,
+            plastic_waste:1586,
+            gaseous_waste: 255.831,
+            collected_waste:616736
+        },
+        {
+            country:"germany",
+            year:2019,
+            plastic_waste:1200,
+            gaseous_waste: 702.201,
+            collected_waste:65
+    
+        },
+        {
+            country:"france",
+            year:2019,
+            plastic_waste:800,
+            gaseous_waste: 319.613,
+            collected_waste:38
+        },
+        {
+            country:"italy",
+            year:2019,
+            plastic_waste:500,
+            gaseous_waste: 332.855,
+            collected_waste:41
+        }
+    
+    ];
+    iniData.forEach((e) => {
+        pollution_stats.push(e);
+    });
+    res.send(JSON.stringify(pollution_stats,null,2));
 
-    },
-    {
-        country:"Spain",
-        year:2019,
-        plastic_waste:1586,
-        gaseous_waste: 255.831,
-        collected_waste:616736
-    }
+});
 
-];
 app.get(BASE_API_URL+ "/pollution-stats",(req,res)=>{
     res.send(JSON.stringify(pollution_stats,null,2)); 
 
@@ -62,6 +93,9 @@ app.post(BASE_API_URL+ "/pollution-stats",(req,res)=>{
     pollution_stats.push(req.body);
     res.sendStatus(201,"CREATED"); 
 });
+app.post(BASE_API_URL+"/pollution-stats/:country",(req,res)=>{
+    res.sendStatus(405,"METHOD NOT FOUND"); 
+});
 app.delete(BASE_API_URL+"/pollution-stats", (req,res)=>{
     pollution_stats = [];
     res.sendStatus(200,"OK");
@@ -72,6 +106,36 @@ app.delete(BASE_API_URL+"/pollution-stats/:country", (req,res)=>{
         return (pollution.country != pollutionCountry);
     });
     res.sendStatus(200,"OK");
+});
+app.put(BASE_API_URL+"/pollution-stats", (req,res)=>{
+    res.sendStatus(405,"METHOD NOT ALLOWED");
+});
+app.put(BASE_API_URL+"/pollution-stats/:country/:year",(req,res)=>{
+    if(req.body.country == null |
+        req.body.year == null | 
+        req.body.plastic_waste == null | 
+        req.body.gaseous_waste == null | 
+        req.body.collected_waste == null){
+        res.sendStatus(400,"BAD REQUEST");
+    }else{
+        var country = req.params.country;
+        var year = req.params.year;
+        var body = req.body;
+        var index = pollution_stats.findIndex((pollution) =>{
+            return (pollution.country == country && pollution.year == year)
+        })
+        if(index == null){
+            res.sendStatus(404,"NOT FOUND");
+        }else if(country != body.country || year != body.year){
+            res.sendStatus(400,"BAD REQUEST");
+        }else{
+            var update_pollution_stats = {...body};
+            pollution_stats[index] = update_pollution_stats;
+            
+            res.sendStatus(200,"UPDATED");
+        }
+    }
+
 });
 
 // Francisco Javier Cerrada Begines
