@@ -5,6 +5,7 @@ const bodyParser =require("body-parser");
 const app = express();
 const port = process.env.PORT || 8081;
 const BASE_API_URL = "/api/v1";
+const API_DOC_PORTAL = "https://documenter.getpostman.com/view/19481675/UVyn2JiB";
 
 app.use("/", express.static('public'));
 app.use(bodyParser.json());
@@ -24,6 +25,11 @@ app.listen(port, () =>{
 });
 
 // Javier Vargas Algaba
+
+app.get(BASE_API_URL+ "/docs",(req,res)=>{
+    res.redirect(API_DOC_PORTAL); 
+
+});
 var pollution_stats = [];
 app.get(BASE_API_URL + "/pollution-stats/loadInitialData", (req, res)=>{
     var iniData = [
