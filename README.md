@@ -10,4 +10,4 @@
 -  **APIs**:
     - [https://sos2122-12.herokuapp.com/api/v1/my-awesome-resource-1/docs](https://sos2122-12.herokuapp.com/api/v1/my-awesome-resource-1/docs) (developed by [Alejandro Solís Mercado](https://github.com/AlexSolmer))
     - [https://sos2122-12.herokuapp.com/api/v1/pollution-stats/docs](https://sos2122-12.herokuapp.com/api/v1/pollution-stats/docs) (developed by [Javier Vargas Algaba](https://github.com/fravaralg))
-    - [https://sos2122-12.herokuapp.com/api/v1/my-awesome-resource-3/docs](https://sos2122-12.herokuapp.com/api/v1/my-awesome-resource-3/docs) (developed by [Francisco Javier Cerrada Begines](https://github.com/Cerrada97))
+    - [https://sos2122-12.herokuapp.com/api/v1/electricity-consumption-stats/docs](https://sos2122-12.herokuapp.com/api/v1/my-awesome-resource-3/docs) (developed by [Francisco Javier Cerrada Begines](https://github.com/Cerrada97))
