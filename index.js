@@ -109,7 +109,7 @@ app.post(BASE_API_URL+ "/pollution-stats",(req,res)=>{
         res.sendStatus(400, "BAD REQUEST")
     }
     else {
-        filteredEmigrants = pollution_stats.filter((pollution) => {
+        filteredPollutions = pollution_stats.filter((pollution) => {
             return (pollution.country == req.body.country
                 && pollution.year == req.body.year
                 && pollution.plastic_waste == req.body.plastic_waste
@@ -260,6 +260,40 @@ app.get(BASE_API_URL+"/electricity-consumption-stats/:country", (req,res)=>{
     }else{
         res.send(JSON.stringify(filteredElectricity[0],null,2));
     }
+});
+function mal(electricity){
+    return (Object.keys(electricity.body).length != 5 ||
+    electricity.body.country == null ||
+    electricity.body.year == null ||
+    electricity.body.electricity_generation == null ||
+    electricity.body.electricity_consumption == null ||
+    electricity.body.per_capita_consumption == null);
+}
+
+app.post(BASE_API_URL+ "/electricity-consumption-stats",(req,res)=>{
+    if (mal(req)){
+        res.sendStatus(400, "BAD REQUEST")
+    }
+    else {
+        filteredElectricity = electricity_consumption_stats.filter((electricity) => {
+            return (electricity.country == req.body.country
+                && electricity.year == req.body.year
+                && electricity.electricity_generation == req.body.electricity_generation
+                && electricity.electricity_consumption == req.body.electricity_consumption
+                && electricity.per_capita_consumption == req.body.per_capita_consumption);
+        });
+        
+        existente = electricity_consumption_stats.filter((electricity) => {
+            return (electricity.year == req.body.year && electricity.country == req.body.country);
+        })
+
+        if (existente != 0){
+            res.sendStatus(409, "CONFLICT");
+        }else{
+            electricity_consumption_stats.push(req.body);
+            res.sendStatus(201, "CREATED");
+        }
+    } 
 });
 app.post(BASE_API_URL+ "/electricity-consumption-stats",(req,res)=>{
     electricity_consumption_stats.push(req.body);
