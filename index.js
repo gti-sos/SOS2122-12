@@ -95,9 +95,39 @@ app.get(BASE_API_URL+"/pollution-stats/:country", (req,res)=>{
         res.send(JSON.stringify(filteredPollutions[0],null,2));
     }
 });
+function mal(pollution){
+    return (Object.keys(pollution.body).length != 5 ||
+    pollution.body.country == null ||
+    pollution.body.year == null ||
+    pollution.body.plastic_waste == null ||
+    pollution.body.gaseous_waste == null ||
+    pollution.body.collected_waste == null);
+}
+
 app.post(BASE_API_URL+ "/pollution-stats",(req,res)=>{
-    pollution_stats.push(req.body);
-    res.sendStatus(201,"CREATED"); 
+    if (mal(req)){
+        res.sendStatus(400, "BAD REQUEST")
+    }
+    else {
+        filteredEmigrants = pollution_stats.filter((pollution) => {
+            return (pollution.country == req.body.country
+                && pollution.year == req.body.year
+                && pollution.plastic_waste == req.body.plastic_waste
+                && pollution.gaseous_waste == req.body.gaseous_waste
+                && pollution.collected_waste == req.body.collected_waste);
+        });
+        
+        existente = pollution_stats.filter((pollution) => {
+            return (pollution.year == req.body.year && pollution.country == req.body.country);
+        })
+
+        if (existente != 0){
+            res.sendStatus(409, "CONFLICT");
+        }else{
+            pollution_stats.push(req.body);
+            res.sendStatus(201, "CREATED");
+        }
+    } 
 });
 app.post(BASE_API_URL+"/pollution-stats/:country",(req,res)=>{
     res.sendStatus(405,"METHOD NOT FOUND"); 
