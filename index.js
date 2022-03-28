@@ -211,10 +211,14 @@ app.get(BASE_API_URL + "/electricity-consumption-stats/loadInitialData", (req, r
     iniData.forEach((e) => {
         electricity_consumption_stats.push(e);
     });
+    res.sendStatus(200, "OK");
     res.send(JSON.stringify(electricity_consumption_stats,null,2));
 
 });
+app.get(BASE_API_URL+ "/electricity-consumption-stats",(req,res)=>{
+    res.send(JSON.stringify(electricity_consumption_stats,null,2)); 
 
+});
 app.get(BASE_API_URL+"/electricity-consumption-stats/:country", (req,res)=>{
     var electricityCountry = req.params.country;
     filteredElectricity = electricity_consumption_stats.filter((electricity)=>{
