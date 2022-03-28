@@ -235,6 +235,7 @@ app.post(BASE_API_URL+ "/electricity-consumption-stats",(req,res)=>{
     electricity_consumption_stats.push(req.body);
     res.sendStatus(201,"CREATED"); 
 });
+
 app.delete(BASE_API_URL+"/electricity-consumption-stats", (req,res)=>{
     electricity_consumption_stats = [];
     res.sendStatus(200,"OK");
