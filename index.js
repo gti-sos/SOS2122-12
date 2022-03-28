@@ -6,6 +6,7 @@ const app = express();
 const port = process.env.PORT || 8081;
 const BASE_API_URL = "/api/v1";
 const API_DOC_PORTAL = "https://documenter.getpostman.com/view/19481675/UVyn2JiB";
+const API_DOC_PORTAL_1 = "https://documenter.getpostman.com/view/19481748/UVyn3yy7";
 
 app.use("/", express.static('public'));
 app.use(bodyParser.json());
@@ -194,10 +195,7 @@ var electricity_consumption_stats = [
     }
 
 ];
-app.get(BASE_API_URL+ "/electricity-consumption-stats/docs",(req,res)=>{
-    res.send(JSON.stringify(electricity_consumption_stats,null,2)); 
 
-});
 app.get(BASE_API_URL + "/electricity-consumption-stats/loadInitialData", (req, res)=>{
     var iniData = [
         {
@@ -243,6 +241,10 @@ app.get(BASE_API_URL + "/electricity-consumption-stats/loadInitialData", (req, r
     });
     res.sendStatus(200, "OK");
     res.send(JSON.stringify(electricity_consumption_stats,null,2));
+
+});
+app.get(BASE_API_URL+ "/electricity-consumption-stats/docs",(req,res)=>{
+    res.redirect(API_DOC_PORTAL_1); 
 
 });
 app.get(BASE_API_URL+ "/electricity-consumption-stats",(req,res)=>{
