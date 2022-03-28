@@ -168,7 +168,7 @@ app.get(BASE_API_URL+ "/electricity-consumption-stats/docs",(req,res)=>{
     res.send(JSON.stringify(electricity_consumption_stats,null,2)); 
 
 });
-app.get(BASE_API_URL + "/pollution-stats/loadInitialData", (req, res)=>{
+app.get(BASE_API_URL + "/electricity-consumption-stats/loadInitialData", (req, res)=>{
     var iniData = [
         {
             country:"france",
