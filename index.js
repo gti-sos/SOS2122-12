@@ -3,7 +3,7 @@ const express = require("express");
 const bodyParser =require("body-parser");
 
 const app = express();
-const port = process.env.PORT || 8081;
+const port = process.env.PORT || 8080;
 const BASE_API_URL = "/api/v1";
 const API_DOC_PORTAL = "https://documenter.getpostman.com/view/19481675/UVyn2JiB";
 const API_DOC_PORTAL_1 = "https://documenter.getpostman.com/view/19481748/UVyn3yy7";
