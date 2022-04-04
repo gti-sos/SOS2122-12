@@ -56,7 +56,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{HOST}}:{{PORT}}/api/v1/pollution-stats/varsovia",
+					"raw": "{{HOST}}:{{PORT}}/api/v1/pollution-stats/spain/2019",
 					"host": [
 						"{{HOST}}"
 					],
@@ -65,7 +65,8 @@
 						"api",
 						"v1",
 						"pollution-stats",
-						"varsovia"
+						"spain",
+						"2019"
 					]
 				}
 			},
