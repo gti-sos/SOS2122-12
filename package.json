@@ -7,7 +7,7 @@
     "start": "node index.js",
     "test": "npm run test-pollution-stats && npm run test-eletricity-stats",
     "test-pollution-stats": "npx newman run ./tests/backend.json -e ./tests/env/local.json",
-    "test-electricity-stats": "npx newman run ./tests/backend.json -e ./tests/env/local.json"
+    "test-electricity-stats": "npx newman run ./tests/backend1.json -e ./tests/env/local.json"
   },
   "repository": {
     "type": "git",
