@@ -1,89 +1,208 @@
 const BASE_API_URL = "/api/v1";
 const API_DOC_PORTAL = "https://documenter.getpostman.com/view/19481675/UVyn2JiB";
-var pollution_stats = [];
 
-module.exports = (app) => {
+
+var pollutions = [
+    {
+        country:"eeuu",
+        year:2019,
+        plastic_waste:17792,
+        gaseous_waste: 5036.047,
+        collected_waste:323
+
+    },
+    {
+        country:"spain",
+        year:2019,
+        plastic_waste:1586,
+        gaseous_waste: 255.831,
+        collected_waste:616736
+    },
+    {
+        country:"germany",
+        year:2019,
+        plastic_waste:1200,
+        gaseous_waste: 702.201,
+        collected_waste:65
+
+    },
+    {
+        country:"france",
+        year:2019,
+        plastic_waste:800,
+        gaseous_waste: 319.613,
+        collected_waste:38
+    },
+    {
+        country:"italy",
+        year:2019,
+        plastic_waste:500,
+        gaseous_waste: 332.855,
+        collected_waste:41
+    }
+
+];
+
+module.exports = (app, db) => {
 
     app.get(BASE_API_URL+ "/pollution-stats/docs",(req,res)=>{
         res.redirect(API_DOC_PORTAL); 
     
     });
     app.get(BASE_API_URL + "/pollution-stats/loadInitialData", (req, res)=>{
-        var iniData = [
-            {
-                country:"eeuu",
-                year:2019,
-                plastic_waste:17792,
-                gaseous_waste: 5036.047,
-                collected_waste:323
         
-            },
-            {
-                country:"spain",
-                year:2019,
-                plastic_waste:1586,
-                gaseous_waste: 255.831,
-                collected_waste:616736
-            },
-            {
-                country:"germany",
-                year:2019,
-                plastic_waste:1200,
-                gaseous_waste: 702.201,
-                collected_waste:65
-        
-            },
-            {
-                country:"france",
-                year:2019,
-                plastic_waste:800,
-                gaseous_waste: 319.613,
-                collected_waste:38
-            },
-            {
-                country:"italy",
-                year:2019,
-                plastic_waste:500,
-                gaseous_waste: 332.855,
-                collected_waste:41
+        db.find({}, function(err,filteredPollutions){
+
+            if(err){
+                res.sendStatus(500, "CLIENT ERROR");
             }
-        
-        ];
-        iniData.forEach((e) => {
-            pollution_stats.push(e);
-        });
-        res.send(JSON.stringify(pollution_stats,null,2));
+
+            if(filteredPollutions==0){
+                for(var i = 0; i<pollutions.length;i++){
+                    db.insert(pollutions[i]);
+                }
+                res.sendStatus(200,"OK");
+            }
+        })
     
     });
     
     app.get(BASE_API_URL+ "/pollution-stats",(req,res)=>{
-        res.send(JSON.stringify(pollution_stats,null,2)); 
+        var year = req.query.year;
+        var from = req.query.from;
+        var to   = req.query.to;
+    
+        for(var i = 0; i<Object.keys(req.query).length;i++){
+            var element = Object.keys(req.query)[i];
+            if(element != "year" && element != "from" && element != "to" && element != "limit" && element != "offset"){
+                res.sendStatus(400, "BAD REQUEST");  
+            }
+        }
+
+        if(from>to){
+            res.sendStatus(400, "BAD REQUEST");   
+        }
+    
+        db.find({},function(err, filteredPollutions){
+    
+            if(err){
+                res.sendStatus(500, "CLIENT ERROR");   
+            }
+
+            // Año
+            if(year != null){
+                var filteredPollutions = filteredPollutions.filter((reg)=>
+                {
+                    return (reg.year == year);
+                });
+                if (filteredPollutions==0){
+                    res.sendStatus(404, "NOT FOUND");     
+                }
+            }
+
+            // From To
+            if(from != null && to != null){
+                filteredPollutions = filteredPollutions.filter((reg)=>
+                {
+                    return (reg.year >= from && reg.year <=to);
+                });
+    
+                if (filteredPollutions==0){
+                    res.sendStatus(404, "NOT FOUND");
+                }    
+            }
+            
+            if(req.query.limit != undefined || req.query.offset != undefined){
+                filteredPollutions = pagination(req,filteredPollutions);
+            }
+            filteredPollutions.forEach((element)=>{
+                delete element._id;
+            });
+            res.send(JSON.stringify(filteredPollutions,null,2));
+        }); 
     
     });
     app.get(BASE_API_URL+"/pollution-stats/:country", (req,res)=>{
-        var pollutionCountry = req.params.country;
-        filteredPollutions = pollution_stats.filter((pollution)=>{
-            return (pollution.country == pollutionCountry);
-        });
+        var country =req.params.country
+        var from = req.query.from;
+        var to = req.query.to;
     
-        if(filteredPollutions == 0){
-            res.sendStatus(404,"NOT FOUND");
-        }else{
-            res.send(JSON.stringify(filteredPollutions[0],null,2));
+        for(var i = 0; i<Object.keys(req.query).length;i++){
+            var element = Object.keys(req.query)[i];
+            if(element != "from" && element != "to"){
+                res.sendStatus(400, "BAD REQUEST");
+                return;
+            }
         }
+    
+        if(from>to){
+            res.sendStatus(400, "BAD REQUEST"); 
+        }
+    
+        db.find({}, function(err,filteredPollutions){
+                
+            if(err){
+                res.sendStatus(500, "CLIENT ERROR");
+                return;
+            }
+    
+            filteredPollutions = filteredPollutions.filter((reg)=>
+            {
+                return (reg.country == country);
+            });
+    
+    
+            if(from != null && to != null && from<=to){
+                filteredPollutions = filteredPollutions.filter((reg)=>
+                {
+                   return (reg.year >= from && reg.year <=to);
+                }); 
+                
+            }
+        
+            if (filteredPollutions==0){
+                res.sendStatus(404, "NOT FOUND");
+                return;
+            }
+            
+            if(req.query.limit != undefined || req.query.offset != undefined){
+                filteredPollutions = pagination(req,filteredPollutions);
+            }
+            filteredPollutions.forEach((element)=>{
+                delete element._id;
+            });
+            res.send(JSON.stringify(filteredPollutions,null,2));
+        });
     });
     app.get(BASE_API_URL+"/pollution-stats/:country/:year", (req,res)=>{
-        var pollutionCountry = req.params.country;
-        var pollutionYear = req.params.year;
-        filteredPollutions = pollution_stats.filter((pollution)=>{
-            return ((pollution.country == pollutionCountry) && pollution.year == pollutionYear);
-        });
+        var pollutionCountry =req.params.country
+        var pollutionYear = req.params.year
     
-        if(filteredPollutions == 0){
-            res.sendStatus(404,"NOT FOUND");
-        }else{
+        db.find({},function(err, filteredPollutions){
+    
+            if(err){
+                res.sendStatus(500, "ERROR EN CLIENTE");
+            }
+    
+            filteredPollutions = filteredPollutions.filter((reg)=>
+            {
+                return (reg.country == pollutionCountry && reg.year == pollutionYear);
+            });
+    
+            if (filteredPollutions==0){
+                res.sendStatus(404, "NO EXISTE");
+            }
+            
+            //Pagination
+            if(req.query.limit != undefined || req.query.offset != undefined){
+                filteredPollutions = pagination(req,filteredPollutions);
+                res.send(JSON.stringify(filteredPollutions,null,2));
+            }
+            filteredPollutions.forEach((element)=>{
+                delete element._id;
+            });
             res.send(JSON.stringify(filteredPollutions[0],null,2));
-        }
+        });
     });
     function mal(pollution){
         return (Object.keys(pollution.body).length != 5 ||
@@ -92,75 +211,133 @@ module.exports = (app) => {
         pollution.body.plastic_waste == null ||
         pollution.body.gaseous_waste == null ||
         pollution.body.collected_waste == null);
-    }
+    };
+    function pagination(req, lista){
+
+        var res = [];
+        const limit = req.query.limit;
+        const offset = req.query.offset;
+        
+        if(limit < 1 || offset < 0 || offset > lista.length){
+            res.push("ERROR");
+            return res;
+        }
+    
+        res = lista.slice(offset,parseInt(limit)+parseInt(offset));
+        return res;
+    
+    };
     
     app.post(BASE_API_URL+ "/pollution-stats",(req,res)=>{
-        if (mal(req)){
-            res.sendStatus(400, "BAD REQUEST")
+        if(mal(req)){
+            res.sendStatus(400,"BAD REQUEST");
         }
-        else {
-            filteredEmigrants = pollution_stats.filter((pollution) => {
-                return (pollution.country == req.body.country
-                    && pollution.year == req.body.year
-                    && pollution.plastic_waste == req.body.plastic_waste
-                    && pollution.gaseous_waste == req.body.gaseous_waste
-                    && pollution.collected_waste == req.body.collected_waste);
-            });
-            
-            existente = pollution_stats.filter((pollution) => {
-                return (pollution.year == req.body.year && pollution.country == req.body.country);
-            })
+        else{
+            db.find({},function(err,filteredPollutions){
     
-            if (existente != 0){
-                res.sendStatus(409, "CONFLICT");
-            }else{
-                pollution_stats.push(req.body);
-                res.sendStatus(201, "CREATED");
-            }
-        } 
+                if(err){
+                    res.sendStatus(500, "CLIENT ERROR");
+                   
+                }
+    
+                filteredPollutions = filteredPollutions.filter((reg)=>
+                {
+                    return(req.body.country == reg.country && req.body.year == reg.year)
+                })
+            
+                if(filteredPollutions.length != 0){
+                    res.sendStatus(409, "CONFLICT");
+                }else{
+                    db.insert(req.body);
+                    res.sendStatus(201, "CREATED");
+                }
+            });
+        }
     });
     app.post(BASE_API_URL+"/pollution-stats/:country",(req,res)=>{
         res.sendStatus(405,"METHOD NOT FOUND"); 
     });
     app.delete(BASE_API_URL+"/pollution-stats", (req,res)=>{
-        pollution_stats = [];
-        res.sendStatus(200,"OK");
+        db.remove({}, { multi: true}, (err, rem)=>{
+            if (err){
+                res.sendStatus(500, "CLIENT ERROR");
+            }
+            res.sendStatus(200, "OK")
+        })
     });
     app.delete(BASE_API_URL+"/pollution-stats/:country", (req,res)=>{
-        var pollutionCountry = req.params.country;
-        pollution_stats = pollution_stats.filter((pollution)=>{
-            return (pollution.country != pollutionCountry);
+        var Country = req.params.country;   
+    
+        db.find({country: Country}, {}, (err, filteredPollutions)=>{
+
+            if (err){
+                res.sendStatus(500,"ERROR EN CLIENTE");
+                return;
+            }
+            if(filteredPollutions==0){
+                res.sendStatus(404,"NOT FOUND");
+                return;
+            }
+            db.remove({country: Country}, {}, (err, rem)=>{
+                if (err){
+                    res.sendStatus(500,"ERROR EN CLIENTE");
+                    return;
+                }
+            
+                res.sendStatus(200,"OK");
+                return;
+                
+            });
         });
-        res.sendStatus(200,"OK");
     });
+    
     app.put(BASE_API_URL+"/pollution-stats", (req,res)=>{
         res.sendStatus(405,"METHOD NOT ALLOWED");
     });
     app.put(BASE_API_URL+"/pollution-stats/:country/:year",(req,res)=>{
-        if(req.body.country == null |
-            req.body.year == null | 
-            req.body.plastic_waste == null | 
-            req.body.gaseous_waste == null | 
-            req.body.collected_waste == null){
+        if(incorrect(req)){
             res.sendStatus(400,"BAD REQUEST");
-        }else{
-            var country = req.params.country;
-            var year = req.params.year;
-            var body = req.body;
-            var index = pollution_stats.findIndex((pollution) =>{
-                return (pollution.country == country && pollution.year == year)
-            })
-            if(index == null){
-                res.sendStatus(404,"NOT FOUND");
-            }else if(country != body.country || year != body.year){
-                res.sendStatus(400,"BAD REQUEST");
-            }else{
-                var update_pollution_stats = {...body};
-                pollution_stats[index] = update_pollution_stats;
-                
-                res.sendStatus(200,"UPDATED");
-            }
         }
+        var Country = req.params.country;
+        var Year = req.params.year;
+        var Body = req.body; 
+
+        db.find({},function(err,filteredPollutions){
+            if(err){
+                res.sendStatus(500, "CLIENT ERROR");
+                return;
+            }
+
+            //Si no existe...
+
+            filteredPollutions = filteredPollutions.filter((reg)=>
+            {
+                return (reg.country == Country && reg.year == Year);
+        });
+        if (filteredPollutions==0){
+            res.sendStatus(404, "NOT FOUND");
+            return;
+        }
+
+        //Si los campos han cambiado...
+
+        if(Country != Body.country || Year != Body.year){
+            res.sendStatus(400,"BAD REQUEST");
+            return;
+        }
+
+        //Se hace el put
+            
+        db.update({$and:[{country: String(Country)}, {year: parseInt(Year)}]}, {$set: Body}, {},function(err, upd) {
+            if (err) {
+                res.sendStatus(500, "CLIENT ERROR");
+                return;
+            }else{
+                res.sendStatus(200, "UPDATED");
+                return;
+            }
+        });
+    });
     
     });
 

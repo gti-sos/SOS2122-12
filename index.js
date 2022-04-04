@@ -1,6 +1,7 @@
 const cool = require("cool-ascii-faces");
 const express = require("express");
 const bodyParser =require("body-parser");
+const Datastore = require("nedb")
 
 
 const app = express();
@@ -21,12 +22,16 @@ app.get("/time",(req,res)=>{
     res.send("<html><body><h1>"+new Date()+"</h1></body></html>")
 });
 
+db_pollutions = new Datastore();
+
+pollution_stats.register(app, db_pollutions);
+
 app.listen(port, () =>{
     console.log(`Server ready at port ${port}`);
 });
 // Backend Javier Vargas Algaba
 const backendPollutionStats = require("./src/pollution-stats");
-backendPollutionStats(app)
+backendPollutionStats.register(app, db_pollutions)
 
 
 
