@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "test": "npm run test-pollution-stats && npm run test-eletricity-stats",
-    "test-pollution-stats": "npx newman run ./tests/backend.json -e ./tests/env/local.json",
+    "test-pollution-stats": "npx newman run ./tests/backend.json -e ./tests/env/heroku.json",
     "test-electricity-stats": "npx newman run ./tests/backend1.json -e ./tests/env/heroku-electricity.json"
   },
   "repository": {
