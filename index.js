@@ -7,6 +7,7 @@ const app = express();
 const port = process.env.PORT || 8080;
 const BASE_API_URL = "/api/v1";
 
+
 app.use("/", express.static('public'));
 app.use(bodyParser.json());
 
@@ -26,6 +27,7 @@ app.listen(port, () =>{
 // Backend Javier Vargas Algaba
 const backendPollutionStats = require("./src/pollution-stats");
 backendPollutionStats(app)
+
 
 
 // Francisco Javier Cerrada Begines
@@ -48,10 +50,7 @@ var electricity_consumption_stats = [
     }
 
 ];
-app.get(BASE_API_URL+ "/electricity-consumption-stats/docs",(req,res)=>{
-    res.send(JSON.stringify(electricity_consumption_stats,null,2)); 
 
-});
 app.get(BASE_API_URL + "/electricity-consumption-stats/loadInitialData", (req, res)=>{
     var iniData = [
         {
@@ -95,10 +94,18 @@ app.get(BASE_API_URL + "/electricity-consumption-stats/loadInitialData", (req, r
     iniData.forEach((e) => {
         electricity_consumption_stats.push(e);
     });
+    res.sendStatus(200, "OK");
     res.send(JSON.stringify(electricity_consumption_stats,null,2));
 
 });
+app.get(BASE_API_URL+ "/electricity-consumption-stats/docs",(req,res)=>{
+    res.redirect(API_DOC_PORTAL_1); 
 
+});
+app.get(BASE_API_URL+ "/electricity-consumption-stats",(req,res)=>{
+    res.send(JSON.stringify(electricity_consumption_stats,null,2)); 
+
+});
 app.get(BASE_API_URL+"/electricity-consumption-stats/:country", (req,res)=>{
     var electricityCountry = req.params.country;
     filteredElectricity = electricity_consumption_stats.filter((electricity)=>{
@@ -111,10 +118,45 @@ app.get(BASE_API_URL+"/electricity-consumption-stats/:country", (req,res)=>{
         res.send(JSON.stringify(filteredElectricity[0],null,2));
     }
 });
+function mal(electricity){
+    return (Object.keys(electricity.body).length != 5 ||
+    electricity.body.country == null ||
+    electricity.body.year == null ||
+    electricity.body.electricity_generation == null ||
+    electricity.body.electricity_consumption == null ||
+    electricity.body.per_capita_consumption == null);
+}
+
+app.post(BASE_API_URL+ "/electricity-consumption-stats",(req,res)=>{
+    if (mal(req)){
+        res.sendStatus(400, "BAD REQUEST")
+    }
+    else {
+        filteredElectricity = electricity_consumption_stats.filter((electricity) => {
+            return (electricity.country == req.body.country
+                && electricity.year == req.body.year
+                && electricity.electricity_generation == req.body.electricity_generation
+                && electricity.electricity_consumption == req.body.electricity_consumption
+                && electricity.per_capita_consumption == req.body.per_capita_consumption);
+        });
+        
+        existente = electricity_consumption_stats.filter((electricity) => {
+            return (electricity.year == req.body.year && electricity.country == req.body.country);
+        })
+
+        if (existente != 0){
+            res.sendStatus(409, "CONFLICT");
+        }else{
+            electricity_consumption_stats.push(req.body);
+            res.sendStatus(201, "CREATED");
+        }
+    } 
+});
 app.post(BASE_API_URL+ "/electricity-consumption-stats",(req,res)=>{
     electricity_consumption_stats.push(req.body);
     res.sendStatus(201,"CREATED"); 
 });
+
 app.delete(BASE_API_URL+"/electricity-consumption-stats", (req,res)=>{
     electricity_consumption_stats = [];
     res.sendStatus(200,"OK");
