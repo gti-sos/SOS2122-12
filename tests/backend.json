@@ -23,15 +23,11 @@
 					}
 				},
 				"url": {
-					"raw": "{{HOST}}:{{PORT}}/api/v1/pollution-stats/loadInitialData",
+					"raw": "{{HOST}}{{API POLLUTION}}/loadInitialData",
 					"host": [
-						"{{HOST}}"
+						"{{HOST}}{{API POLLUTION}}"
 					],
-					"port": "{{PORT}}",
 					"path": [
-						"api",
-						"v1",
-						"pollution-stats",
 						"loadInitialData"
 					]
 				}
@@ -56,15 +52,11 @@
 					}
 				},
 				"url": {
-					"raw": "{{HOST}}:{{PORT}}/api/v1/pollution-stats/spain/2019",
+					"raw": "{{HOST}}{{API POLLUTION}}/spain/2019",
 					"host": [
-						"{{HOST}}"
+						"{{HOST}}{{API POLLUTION}}"
 					],
-					"port": "{{PORT}}",
 					"path": [
-						"api",
-						"v1",
-						"pollution-stats",
 						"spain",
 						"2019"
 					]
@@ -87,16 +79,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{HOST}}:{{PORT}}/api/v1/pollution-stats/",
+					"raw": "{{HOST}}{{API POLLUTION}}",
 					"host": [
-						"{{HOST}}"
-					],
-					"port": "{{PORT}}",
-					"path": [
-						"api",
-						"v1",
-						"pollution-stats",
-						""
+						"{{HOST}}{{API POLLUTION}}"
 					]
 				}
 			},
@@ -117,16 +102,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{HOST}}:{{PORT}}/api/v1/pollution-stats/",
+					"raw": "{{HOST}}{{API POLLUTION}}",
 					"host": [
-						"{{HOST}}"
-					],
-					"port": "{{PORT}}",
-					"path": [
-						"api",
-						"v1",
-						"pollution-stats",
-						""
+						"{{HOST}}{{API POLLUTION}}"
 					]
 				}
 			},
@@ -147,15 +125,11 @@
 					}
 				},
 				"url": {
-					"raw": "{{HOST}}:{{PORT}}/api/v1/pollution-stats/spain",
+					"raw": "{{HOST}}{{API POLLUTION}}/spain",
 					"host": [
-						"{{HOST}}"
+						"{{HOST}}{{API POLLUTION}}"
 					],
-					"port": "{{PORT}}",
 					"path": [
-						"api",
-						"v1",
-						"pollution-stats",
 						"spain"
 					]
 				}
@@ -177,15 +151,9 @@
 					}
 				},
 				"url": {
-					"raw": "{{HOST}}:{{PORT}}/api/v1/pollution-stats",
+					"raw": "{{HOST}}{{API POLLUTION}}",
 					"host": [
-						"{{HOST}}"
-					],
-					"port": "{{PORT}}",
-					"path": [
-						"api",
-						"v1",
-						"pollution-stats"
+						"{{HOST}}{{API POLLUTION}}"
 					]
 				}
 			},
@@ -206,15 +174,11 @@
 					}
 				},
 				"url": {
-					"raw": "{{HOST}}:{{PORT}}/api/v1/pollution-stats/spain",
+					"raw": "{{HOST}}{{API POLLUTION}}/spain",
 					"host": [
-						"{{HOST}}"
+						"{{HOST}}{{API POLLUTION}}"
 					],
-					"port": "{{PORT}}",
 					"path": [
-						"api",
-						"v1",
-						"pollution-stats",
 						"spain"
 					]
 				}
@@ -236,15 +200,11 @@
 					}
 				},
 				"url": {
-					"raw": "{{HOST}}:{{PORT}}/api/v1/pollution-stats/spain/2016",
+					"raw": "{{HOST}}{{API POLLUTION}}/spain/2016",
 					"host": [
-						"{{HOST}}"
+						"{{HOST}}{{API POLLUTION}}"
 					],
-					"port": "{{PORT}}",
 					"path": [
-						"api",
-						"v1",
-						"pollution-stats",
 						"spain",
 						"2016"
 					]
