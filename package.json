@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "npm run test-pollution-stats",
-    "test-pollution-stats": "npx newman run ./tests/backend.json -e ./tests/env/local.json"
+    "test": "npm run test-pollution-stats ",
+    "test-pollution-stats": "npx newman run ./tests/backend.json -e ./tests/env/heroku.json"
   },
   "repository": {
     "type": "git",
