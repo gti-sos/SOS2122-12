@@ -1,5 +1,5 @@
 const BASE_API_URL = "/api/v1";
-const API_DOC_PORTAL = "https://documenter.getpostman.com/view/19481748/UVyn3yy7";
+const API_DOC_PORTAL_1 = "https://documenter.getpostman.com/view/19481748/UVyn3yy7";
 var electricity_stats = [];
 
 module.exports = (app) => {
@@ -65,6 +65,27 @@ module.exports = (app) => {
         var electricityCountry = req.params.country;
         filteredElectricity = electricity_consumption_stats.filter((electricity)=>{
         return (electricity.country == electricityCountry);
+        });
+
+        if(filteredElectricity == 0){
+            res.sendStatus(404,"NOT FOUND");
+        }else{
+            res.send(JSON.stringify(filteredElectricity[0],null,2));
+        }
+    });
+    function mal(electricity){
+        return (Object.keys(electricity.body).length != 5 ||
+        electricity.body.country == null ||
+        electricity.body.year == null ||
+        electricity.body.electricity_generation == null ||
+        electricity.body.electricity_consumption == null ||
+        electricity.body.per_capita_consumption == null);
+    }
+    app.get(BASE_API_URL+"/electricity-consumption-stats/:country/:year", (req,res)=>{
+        var electricityCountry = req.params.country;
+        var electricityYear = req.params.year;
+        filteredElectricity = electricity_consumption_stats.filter((electricity)=>{
+        return (electricity.country == electricityCountry && electricity.year == electricityYear);
         });
 
         if(filteredElectricity == 0){
