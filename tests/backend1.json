@@ -1,0 +1,179 @@
+{
+	"info": {
+		"_postman_id": "f1c8c222-2783-41fb-b93b-87cf1e8f8b72",
+		"name": "SOS2122-12",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET /electricity-consumption-stats/loadInitialData",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}{{API ELECTRICITY}}/loadInitialData",
+					"host": [
+						"{{HOST}}{{API ELECTRICITY}}"
+					],
+					"path": [
+						"loadInitialData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /electricity-consumption-stats/:country",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}{{API ELECTRICITY}}/belgica",
+					"host": [
+						"{{HOST}}{{API ELECTRICITY}}"
+					],
+					"path": [
+						"belgica"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /electricity",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}{{API ELECTRICITY}}",
+					"host": [
+						"{{HOST}}{{API ELECTRICITY}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /electricity-consumption-stats",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}{{API ELECTRICITY}}",
+					"host": [
+						"{{HOST}}{{API ELECTRICITY}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE /electricity-consumption-stats",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}{{API ELECTRICITY}}",
+					"host": [
+						"{{HOST}}{{API ELECTRICITY}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE /electricity-consumption-stats/:country",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}{{API ELECTRICITY}}/spain",
+					"host": [
+						"{{HOST}}{{API ELECTRICITY}}"
+					],
+					"path": [
+						"spain"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT /electricity-consumption-stats",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}{{API ELECTRICITY}}",
+					"host": [
+						"{{HOST}}{{API ELECTRICITY}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT /electricity-consumption-stats/:country/:year",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"country\": \"france\",\r\n\"year\": 2017,\r\n\"electricity_generation\": 551544,\r\n\"electricity_consumption\": 449957,\r\n\"per_capita_consumption\": 6698\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOST}}{{API ELECTRICITY}}/france/2018",
+					"host": [
+						"{{HOST}}{{API ELECTRICITY}}"
+					],
+					"path": [
+						"france",
+						"2018"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /electricity-consumption-stats",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"country\": \"china\",\r\n\"year\": 2018,\r\n\"electricity_generation\": 6801933,\r\n\"electricity_consumption\": 645119,\r\n\"per_capita_consumption\": 4590\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{HOST}}{{API ELECTRICITY}}",
+					"host": [
+						"{{HOST}}{{API ELECTRICITY}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
