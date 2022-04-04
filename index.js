@@ -20,13 +20,15 @@ app.get("/time",(req,res)=>{
     console.log("Requested /time route");
     res.send("<html><body><h1>"+new Date()+"</h1></body></html>")
 });
+const Datastore = require("nedb")
+ , db_pollutions = new Datastore();
 
 app.listen(port, () =>{
     console.log(`Server ready at port ${port}`);
 });
 // Backend Javier Vargas Algaba
 const backendPollutionStats = require("./src/pollution-stats");
-backendPollutionStats(app)
+backendPollutionStats.register(app, db_pollutions)
 
 
 
