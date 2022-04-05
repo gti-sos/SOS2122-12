@@ -58,6 +58,8 @@ module.exports.register = (app, db) => {
                 }
                 res.sendStatus(200,"OK");
                 return;
+            }else{
+                res.sendStatus(200, "Ya inicializados")
             }
         })
     
