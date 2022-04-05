@@ -43,7 +43,7 @@ var pollutions = [
 
 ];
 
-module.exports = (app, db) => {
+module.exports.register = (app, db) => {
 
     app.get(BASE_API_URL+ "/pollution-stats/docs",(req,res)=>{
         res.redirect(API_DOC_PORTAL); 
