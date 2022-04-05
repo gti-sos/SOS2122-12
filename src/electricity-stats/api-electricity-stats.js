@@ -58,6 +58,7 @@ module.exports = (app, db) => {
                 res.sendStatus(200,"OK");
             }
         })
+    
     });
     app.get(BASE_API_URL+ "/electricity-consumption-stats/docs",(req,res)=>{
         res.redirect(API_DOC_PORTAL_1); 
