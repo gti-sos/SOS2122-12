@@ -40,7 +40,7 @@ var electricity = [
 
 ];
 
-module.exports = (app, db) => {
+module.exports.register = (app, db) => {
 
 
     app.get(BASE_API_URL + "/electricity-consumption-stats/loadInitialData", (req, res)=>{
