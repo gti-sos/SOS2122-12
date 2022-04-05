@@ -4,7 +4,7 @@ const bodyParser =require("body-parser");
 
 const pollution_stats = require("./src/pollution-stats/index.js");
 const electricity_consumption_stats = require("./src/electricity-stats/api-electricity-stats.js");
-const Datastore = require("nedb")
+const Datastore = require('nedb');
 
 
 const app = express();
