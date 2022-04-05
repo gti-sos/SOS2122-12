@@ -49,6 +49,7 @@ module.exports.register = (app, db) => {
 
             if(err){
                 res.sendStatus(500, "CLIENT ERROR");
+                return;
             }
 
             if(filteredElectricity==0){
@@ -56,6 +57,7 @@ module.exports.register = (app, db) => {
                     db.insert(electricity[i]);
                 }
                 res.sendStatus(200,"OK");
+                return;
             }
         })
     
@@ -72,18 +74,21 @@ module.exports.register = (app, db) => {
         for(var i = 0; i<Object.keys(req.query).length;i++){
             var element = Object.keys(req.query)[i];
             if(element != "year" && element != "from" && element != "to" && element != "limit" && element != "offset"){
-                res.sendStatus(400, "BAD REQUEST");  
+                res.sendStatus(400, "BAD REQUEST");
+                return;
             }
         }
 
         if(from>to){
-            res.sendStatus(400, "BAD REQUEST");   
+            res.sendStatus(400, "BAD REQUEST");  
+            return; 
         }
     
         db.find({},function(err, filteredElectricity){
     
             if(err){
-                res.sendStatus(500, "CLIENT ERROR");   
+                res.sendStatus(500, "CLIENT ERROR");
+                return; 
             }
 
             // Año
@@ -93,7 +98,8 @@ module.exports.register = (app, db) => {
                     return (reg.year == year);
                 });
                 if (filteredElectricity==0){
-                    res.sendStatus(404, "NOT FOUND");     
+                    res.sendStatus(404, "NOT FOUND");
+                    return;     
                 }
             }
 
@@ -106,6 +112,7 @@ module.exports.register = (app, db) => {
     
                 if (filteredElectricity==0){
                     res.sendStatus(404, "NOT FOUND");
+                    return;
                 }    
             }
             
@@ -134,6 +141,7 @@ module.exports.register = (app, db) => {
     
         if(from>to){
             res.sendStatus(400, "BAD REQUEST"); 
+            return;
         }
     
         db.find({}, function(err,filteredElectricity){
@@ -148,7 +156,16 @@ module.exports.register = (app, db) => {
                 return (reg.country == country);
             });
     
-    
+            //Apartado para from y to
+            var from = req.query.from;
+            var to = req.query.to;
+
+            //Comprobamos si from es mas pequeño o igual a to
+            if(from>to){
+                res.sendStatus(400, "BAD REQUEST");
+                return;
+            }
+
             if(from != null && to != null && from<=to){
                 filteredElectricity = filteredElectricity.filter((reg)=>
                 {
@@ -188,6 +205,7 @@ module.exports.register = (app, db) => {
     
             if(err){
                 res.sendStatus(500, "ERROR EN CLIENTE");
+                return;
             }
     
             filteredElectricity = filteredElectricity.filter((reg)=>
@@ -197,6 +215,7 @@ module.exports.register = (app, db) => {
     
             if (filteredElectricity==0){
                 res.sendStatus(404, "NO EXISTE");
+                return;
             }
             
             //Pagination
@@ -245,6 +264,7 @@ module.exports.register = (app, db) => {
     
                 if(err){
                     res.sendStatus(500, "CLIENT ERROR");
+                    return;
                    
                 }
     
@@ -273,8 +293,10 @@ module.exports.register = (app, db) => {
         db.remove({}, { multi: true}, (err, rem)=>{
             if (err){
                 res.sendStatus(500, "CLIENT ERROR");
+                return;
             }
             res.sendStatus(200, "OK")
+            return;
         })
     });
     app.delete(BASE_API_URL+"/electricity-consumption-stats/:country", (req,res)=>{
@@ -309,6 +331,7 @@ module.exports.register = (app, db) => {
     app.put(BASE_API_URL + "/electricity-consumption-stats/:country/:year", (req, res) => {
         if(mal(req)){
             res.sendStatus(400,"BAD REQUEST");
+            return;
         }
     var Country = req.params.country;
     var Year = req.params.year;
@@ -343,10 +366,8 @@ module.exports.register = (app, db) => {
         db.update({$and:[{country: String(Country)}, {year: parseInt(Year)}]}, {$set: Body}, {},function(err, upd) {
             if (err) {
                 res.sendStatus(500, "CLIENT ERROR");
-                return;
             }else{
                 res.sendStatus(200, "UPDATED");
-                return;
             }
         });
     });
