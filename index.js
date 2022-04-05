@@ -23,8 +23,10 @@ app.get("/time",(req,res)=>{
 });
 
 db_pollutions = new Datastore();
+db_electricity = new Datastore();
 
 pollution_stats.register(app, db_pollutions);
+electricity_consumption_stats.register(app, db_electricity);
 
 app.listen(port, () =>{
     console.log(`Server ready at port ${port}`);
@@ -37,4 +39,4 @@ backendPollutionStats.register(app, db_pollutions)
 
 // Backend Francisco Javier Cerrada Begines
 const backendElectricityStats = require("./src/electricity-stats");
-backendElectricityStats(app)
+backendElectricityStats.register(app, db_electricity)
