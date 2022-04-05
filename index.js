@@ -35,7 +35,3 @@ electricity_consumption_stats.register(app, db_electricity);
 app.listen(port, () =>{
     console.log(`Server ready at port ${port}`);
 });
-
-// Backend Francisco Javier Cerrada Begines
-const backendElectricityStats = require("./src/electricity-stats");
-backendElectricityStats.register(app, db_electricity)
