@@ -10,7 +10,7 @@
         "/": Home,
         "/pollution-stats": PollutionStatsTable,
 		"/pollution-stats/:country/:year": PollutionStats        
-    }
+    };
 </script>
 
 <main>
