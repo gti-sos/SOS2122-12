@@ -27,8 +27,8 @@
             pop();
         }
     }
-    async function EditEntry(){
-        console.log("Updating entry...."+updatedCountry);
+    async function EditPollution(){
+        console.log("Updating pollution...."+updatedCountry);
         const res = await fetch("/api/v1/internet-population/"+params.country+"/"+params.year,
 			{
 				method: "PUT",
@@ -91,7 +91,7 @@
                     <td><input bind:value="{updatedPlasticWaste}"></td>
                     <td><input bind:value="{updatedGaseousWaste}"></td>
                     <td><input bind:value="{updatedCollectedWaste}"></td>
-                    <td><Button outline color="primary" on:click="{EditEntry}">
+                    <td><Button outline color="primary" on:click="{EditPollution}">
                         Editar
                         </Button>
                     </td>

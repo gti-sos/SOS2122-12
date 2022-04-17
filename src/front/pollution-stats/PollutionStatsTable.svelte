@@ -20,8 +20,8 @@
             console.log("Received entries: "+pollutions.length);
         }
     }
-	async function insertEntry(){
-        console.log("Inserting entry...."+JSON.stringify(newPollution));
+	async function insertPollution(){
+        console.log("Inserting pollution...."+JSON.stringify(newPollution));
         const res = await fetch("/api/v1/pollution-stats",
 			{
 				method: "POST",
@@ -34,8 +34,8 @@
 				window.alert("Entrada introducida con éxito");
 			}); 
     }
-	async function BorrarEntry(countryDelete, yearDelete){
-        console.log("Deleting entry....");
+	async function BorrarPollution(countryDelete, yearDelete){
+        console.log("Deleting pollution....");
         const res = await fetch("/api/v1/pollution-stats/"+countryDelete+"/"+yearDelete,
 			{
 				method: "DELETE"
@@ -44,8 +44,8 @@
 				window.alert("Entrada eliminada con éxito");
 			});
     }
-	async function BorrarEntries(){
-        console.log("Deleting entries....");
+	async function BorrarPollutions(){
+        console.log("Deleting pollutions....");
         const res = await fetch("/api/v1/pollution-stats/",
 			{
 				method: "DELETE"
@@ -54,8 +54,8 @@
 				window.alert("Entradas elimidas con éxito");
 			});
     }
-	async function LoadEntries(){
-        console.log("Loading entries....");
+	async function LoadPollutions(){
+        console.log("Loading pollutions....");
         const res = await fetch("/api/v1/pollution-stats/loadInitialData",
 			{
 				method: "GET"
@@ -93,7 +93,7 @@ loading
 				<td><input bind:value="{newPollution.plastic_waste}"></td>
                 <td><input bind:value="{newPollution.gaseous_waste}"></td>
                 <td><input bind:value="{newPollution.collected_waste}"></td>
-				<td><Button outline color="primary" on:click="{insertEntry}">
+				<td><Button outline color="primary" on:click="{insertPollution}">
 					Añadir
 					</Button>
 				</td>
@@ -110,17 +110,17 @@ loading
 					}}>
 						Editar
 					</Button>
-					<td><Button outline color="danger" on:click={BorrarEntry(pollution.country,pollution.year)}>
+					<td><Button outline color="danger" on:click={BorrarPollution(pollution.country,pollution.year)}>
 						Borrar
 					</Button>
 					</td>
 				</tr>
 			{/each}
 			<tr>
-				<td><Button outline color="success" on:click={LoadEntries}>
+				<td><Button outline color="success" on:click={LoadPollutions}>
 					Cargar datos
 				</Button></td>
-				<td><Button outline color="danger" on:click={BorrarEntries}>
+				<td><Button outline color="danger" on:click={BorrarPollutions}>
 					Borrar todo
 				</Button></td>
 			</tr>
