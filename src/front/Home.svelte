@@ -8,6 +8,11 @@
                 [Javier Vargas Algaba]
             </a>
         </li>
+        <li>
+            - <a href="https://github.com/Cerrada97">
+                [Francisco Javier Cerrada Begines]
+            </a>
+        </li>
     </ul>
     <p style="font-weight: bold;">
         - Project description: </p>analizar la relación que existe entre la contaminación del medio ambiente, el consumo de electricidad y el número de cohetes espaciales lanzados
@@ -27,10 +32,15 @@
         -  APIs:
     </p>
     <ul>
-        <li><a href="https://sos2122-10.herokuapp.com/api/v1/pollution-stats/docs">[https://sos2122-12.herokuapp.com/api/v1/pollution-stats/docs]</a>
-            <a href="https://sos2122-10.herokuapp.com/#/pollution-stats">[https://sos2122-12.herokuapp.com/#/pollution-stats]</a>
+        <li><a href="https://sos2122-12.herokuapp.com/api/v1/pollution-stats/docs">[https://sos2122-12.herokuapp.com/api/v1/pollution-stats/docs]</a>
+            <a href="https://sos2122-12.herokuapp.com/#/pollution-stats">[https://sos2122-12.herokuapp.com/#/pollution-stats]</a>
             (developed by <a href="https://github.com/fravaralg">
             [Javier Vargas Algaba]
+        </a>)</li>
+        <li><a href="https://sos2122-12.herokuapp.com/api/v1/electricity-consumption-stats/docs">[https://sos2122-12.herokuapp.com/api/v1/electricity-consumption-stats/docs]</a>
+            <a href="https://sos2122-12.herokuapp.com/#/electricity-consumption-stats">[https://sos2122-12.herokuapp.com/#/electricity-consumption-stats]</a>
+            (developed by <a href="https://github.com/Cerrada97">
+            [Francisco Javier Cerrada Begines]
         </a>)</li>
     </ul>
 </main>
