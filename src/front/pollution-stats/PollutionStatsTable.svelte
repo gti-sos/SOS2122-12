@@ -69,7 +69,7 @@
 
 <main>
    
-    <h1>Lista usuarios de internet</h1>
+    <h1>Pollution manager</h1>
 
 {#await pollutions}
 loading
