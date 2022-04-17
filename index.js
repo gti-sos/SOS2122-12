@@ -2,14 +2,14 @@ const cool = require("cool-ascii-faces");
 const express = require("express");
 const bodyParser =require("body-parser");
 
-const pollution_stats = require("./src/pollution-stats/index.js");
-const electricity_consumption_stats = require("./src/electricity-stats/api-electricity-stats.js");
+
+const pollution_stats = require("./src/back/pollution-stats/index.js");
+const electricity_consumption_stats = require("./src/back/electricity-stats/api-electricity-stats.js");
 const Datastore = require('nedb');
 
 
 const app = express();
 const port = process.env.PORT || 8080;
-const BASE_API_URL = "/api/v1";
 
 
 app.use("/", express.static('public'));
