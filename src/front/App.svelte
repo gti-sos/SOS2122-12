@@ -5,11 +5,18 @@
     //Elementos de Javi
     import PollutionStatsTable from "./pollution-stats/PollutionStatsTable.svelte";
     import PollutionStats from "./pollution-stats/PollutionStats.svelte";
+
+    //Elementos de Fran
+    import ElectricityStatsTable from "./electricity-consumption-stats/ElectricityStatsTable.svelte";
+    import ElectricityStats from "./electricity-consumption-stats/ElectricityStats.svelte";
     
     const routes = {
         "/": Home,
         "/pollution-stats": PollutionStatsTable,
-		"/pollution-stats/:country/:year": PollutionStats        
+		"/pollution-stats/:country/:year": PollutionStats,     
+
+        "/electricity-consumption-stats": ElectricityStatsTable,
+		"/electricity-consumption-stats/:country/:year": ElectricityStats         
     };
 </script>
 
