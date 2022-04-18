@@ -40,7 +40,7 @@
 			{
 				method: "DELETE"
 			}).then(function (res){
-				getPollutionStats();
+				getElectricityStats();
 				window.alert("Entrada eliminada con éxito");
 			});
     }
