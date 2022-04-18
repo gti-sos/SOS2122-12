@@ -121,7 +121,7 @@ module.exports.register = (app, db) => {
             if(req.query.limit != undefined || req.query.offset != undefined){
                 filteredElectricity = pagination(req,filteredElectricity);
             }
-            filteredEmigrants.forEach((element)=>{
+            filteredElectricity.forEach((element)=>{
                 delete element._id;
             });
             res.send(JSON.stringify(filteredElectricity,null,2));
@@ -301,10 +301,10 @@ module.exports.register = (app, db) => {
             return;
         })
     });
-    app.delete(BASE_API_URL+"/electricity-consumption-stats/:country", (req,res)=>{
+    app.delete(BASE_API_URL+"/electricity-consumption-stats/:country/:year", (req,res)=>{
         var Country = req.params.country;   
-    
-        db.find({country: Country}, {}, (err, filteredElectricity)=>{
+        var Year = req.params.year;
+        db.find({country: Country, year: parseInt(Year)}, {}, (err, filteredElectricity)=>{
 
             if (err){
                 res.sendStatus(500,"ERROR EN CLIENTE");
@@ -314,7 +314,7 @@ module.exports.register = (app, db) => {
                 res.sendStatus(404,"NOT FOUND");
                 return;
             }
-            db.remove({country: Country}, {}, (err, rem)=>{
+            db.remove({country: Country, year: parseInt(Year)}, {}, (err, rem)=>{
                 if (err){
                     res.sendStatus(500,"ERROR EN CLIENTE");
                     return;
