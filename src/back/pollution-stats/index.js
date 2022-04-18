@@ -290,10 +290,11 @@ module.exports.register = (app, db) => {
             return;
         })
     });
-    app.delete(BASE_API_URL+"/pollution-stats/:country", (req,res)=>{
-        var Country = req.params.country;   
+    app.delete(BASE_API_URL+"/pollution-stats/:country/:year", (req,res)=>{
+        var Country = req.params.country;  
+        var Year = req.params.year; 
     
-        db.find({country: Country}, {}, (err, filteredPollutions)=>{
+        db.find({country: Country, year: parseInt(Year)}, {}, (err, filteredPollutions)=>{
 
             if (err){
                 res.sendStatus(500,"ERROR EN CLIENTE");
@@ -303,7 +304,7 @@ module.exports.register = (app, db) => {
                 res.sendStatus(404,"NOT FOUND");
                 return;
             }
-            db.remove({country: Country}, {}, (err, rem)=>{
+            db.remove({country: Country, year: parseInt(Year)}, {}, (err, rem)=>{
                 if (err){
                     res.sendStatus(500,"ERROR EN CLIENTE");
                     return;
