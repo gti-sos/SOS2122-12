@@ -9,7 +9,7 @@ const Datastore = require('nedb');
 
 
 const app = express();
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 8082;
 
 
 app.use("/", express.static('public'));
