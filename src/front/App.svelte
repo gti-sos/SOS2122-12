@@ -11,7 +11,7 @@
     import ElectricityStats from "./electricity-consumption-stats/ElectricityStats.svelte";
     
     const routes = {
-        "/": Home,
+        "/info": Home,
         "/pollution-stats": PollutionStatsTable,
 		"/pollution-stats/:country/:year": PollutionStats,     
 
