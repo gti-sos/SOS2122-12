@@ -42,7 +42,9 @@
 				headers: {
 					"Content-Type": "application/json"
 				}
-			}); 
+			}).then(function(){
+                pop();
+            }); 
     }
     async function Errores(code){
         
