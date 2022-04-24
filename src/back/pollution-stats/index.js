@@ -321,7 +321,7 @@ module.exports.register = (app, db) => {
         res.sendStatus(405,"METHOD NOT ALLOWED");
     });
     app.put(BASE_API_URL+"/pollution-stats/:country/:year",(req,res)=>{
-        if(incorrect(req)){
+        if(mal(req)){
             res.sendStatus(400,"BAD REQUEST");
             return;
         }
