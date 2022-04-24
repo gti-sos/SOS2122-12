@@ -4,12 +4,15 @@
     import { onMount } from 'svelte';
     import Button from 'sveltestrap/src/Button.svelte';
     import Table from 'sveltestrap/src/Table.svelte';
+
     let pollution = {};
+
     let updatedCountry;
     let updatedYear;
     let updatedPlasticWaste;
     let updatedGaseousWaste;
     let updatedCollectedWaste;
+
     onMount(getPollutionStats);
     async function getPollutionStats(){
         console.log("Fetching pollutions....");
@@ -29,7 +32,7 @@
     }
     async function EditPollution(){
         console.log("Updating pollution...."+updatedCountry);
-        const res = await fetch("/api/v1/internet-population/"+params.country+"/"+params.year,
+        const res = await fetch("/api/v1/pollution-stats/"+params.country+"/"+params.year,
 			{
 				method: "PUT",
 				body: JSON.stringify({
@@ -42,7 +45,9 @@
 				headers: {
 					"Content-Type": "application/json"
 				}
-			}); 
+			}).then(function(){
+                pop();
+            }); 
     }
     async function Errores(code){
         
