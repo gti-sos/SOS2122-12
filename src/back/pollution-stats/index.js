@@ -323,6 +323,7 @@ module.exports.register = (app, db) => {
     app.put(BASE_API_URL+"/pollution-stats/:country/:year",(req,res)=>{
         if(incorrect(req)){
             res.sendStatus(400,"BAD REQUEST");
+            return;
         }
         var Country = req.params.country;
         var Year = req.params.year;
