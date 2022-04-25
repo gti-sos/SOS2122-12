@@ -1,4 +1,4 @@
-const BASE_API_URL = "/api/v1";
+const BASE_API_URL = "/api/v2";
 const API_DOC_PORTAL_1 = "https://documenter.getpostman.com/view/19481748/UVyn3yy7";
 var electricity = [
     {
