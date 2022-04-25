@@ -328,7 +328,7 @@ module.exports.register = (app, db) => {
         var Country = req.params.country;
         var Year = req.params.year;
         var Body = req.body; 
-
+        
         db.find({},function(err,filteredPollutions){
             if(err){
                 res.sendStatus(500, "CLIENT ERROR");
