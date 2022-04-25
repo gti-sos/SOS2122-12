@@ -37,7 +37,7 @@
         -  APIs:
     </p>
     <ul>
-        <li><a href="https://sos2122-12.herokuapp.com/api/v1/pollution-stats/docs">[https://sos2122-12.herokuapp.com/api/v1/pollution-stats/docs]</a>
+        <li><a href="https://sos2122-12.herokuapp.com/api/v2/pollution-stats/docs">[https://sos2122-12.herokuapp.com/api/v2/pollution-stats/docs]</a>
             <a href="https://sos2122-12.herokuapp.com/#/pollution-stats">[https://sos2122-12.herokuapp.com/#/pollution-stats]</a>
             (developed by <a href="https://github.com/fravaralg">
             [Javier Vargas Algaba]

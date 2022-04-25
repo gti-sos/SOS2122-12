@@ -17,7 +17,7 @@
 
     async function getPollutionStats(){
         console.log("Fetching pollutions....");
-        const res = await fetch("/api/v1/pollution-stats/"+params.country+"/"+params.year); 
+        const res = await fetch("/api/v2/pollution-stats/"+params.country+"/"+params.year); 
         if(res.ok){
             const data = await res.json();
             pollution = data;
@@ -33,7 +33,7 @@
     }
     async function EditPollution(){
         console.log("Updating pollution...."+updatedCountry);
-        const res = await fetch("/api/v1/pollution-stats/"+params.country+"/"+params.year,
+        const res = await fetch("/api/v2/pollution-stats/"+params.country+"/"+params.year,
 			{
 				method: "PUT",
 				body: JSON.stringify({
