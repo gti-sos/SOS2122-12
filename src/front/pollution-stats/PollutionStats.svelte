@@ -14,7 +14,7 @@
     let updatedCollectedWaste;
     
     onMount(getPollutionStats);
-    // Recurso concreto
+
     async function getPollutionStats(){
         console.log("Fetching pollutions....");
         const res = await fetch("/api/v1/pollution-stats/"+params.country+"/"+params.year); 
