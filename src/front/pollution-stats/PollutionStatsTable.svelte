@@ -153,7 +153,7 @@ loading
 					}
 				}}">
 					Buscar
-					</Button>
+					</Button> 
 				</td>
 				<td align="center"><Button outline color="info" on:click="{()=>{
 					from = null;
