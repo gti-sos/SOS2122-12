@@ -1,4 +1,4 @@
-const BASE_API_URL = "/api/v1";
+const BASE_API_URL = "/api/v2";
 const API_DOC_PORTAL = "https://documenter.getpostman.com/view/19481675/UVyn2JiB";
 
 

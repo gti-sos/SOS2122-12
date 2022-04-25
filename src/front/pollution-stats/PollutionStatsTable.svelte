@@ -22,7 +22,7 @@
     onMount(getPollutionStats);
     async function getPollutionStats(){
         console.log("Fetching pollutions...."); 
-		let page = `/api/v1/pollution-stats?limit=${limit}&&offset=${offset*10}&&`;
+		let page = `/api/v2/pollution-stats?limit=${limit}&&offset=${offset*10}&&`;
 		if (from != null) {
 			page = page + `from=${from}&&`
 		}
@@ -43,7 +43,7 @@
     }
 	async function insertPollution(){
         console.log("Inserting pollution...."+JSON.stringify(newPollution));
-        const res = await fetch("/api/v1/pollution-stats",
+        const res = await fetch("/api/v2/pollution-stats",
 			{
 				method: "POST",
 				body: JSON.stringify(newPollution),
@@ -61,7 +61,7 @@
     }
 	async function BorrarPollution(countryDelete, yearDelete){
         console.log("Deleting pollution....");
-        const res = await fetch("/api/v1/pollution-stats/"+countryDelete+"/"+yearDelete,
+        const res = await fetch("/api/v2/pollution-stats/"+countryDelete+"/"+yearDelete,
 			{
 				method: "DELETE"
 			}).then(function (res){
@@ -75,7 +75,7 @@
     }
 	async function BorrarPollutions(){
         console.log("Deleting pollutions....");
-        const res = await fetch("/api/v1/pollution-stats/",
+        const res = await fetch("/api/v2/pollution-stats/",
 			{
 				method: "DELETE"
 			}).then(function (res){
@@ -87,7 +87,7 @@
     }
 	async function LoadPollutions(){
         console.log("Loading pollutions....");
-        const res = await fetch("/api/v1/pollution-stats/loadInitialData",
+        const res = await fetch("/api/v2/pollution-stats/loadInitialData",
 			{
 				method: "GET"
 			}).then(function (res){
