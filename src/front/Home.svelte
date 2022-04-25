@@ -27,7 +27,9 @@
         - URL:
     </p>
     <a href="http://sos2122-12.herokuapp.com">[http://sos2122-12.herokuapp.com]</a>
-    
+    <p>
+        Javier Vargas Algaba: Analisis de la contaminación del medio ambiente
+    </p>
     <p style="font-weight: bold;">
         -  APIs:
     </p>
