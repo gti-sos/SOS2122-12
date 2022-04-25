@@ -30,6 +30,9 @@
     <p>
         Javier Vargas Algaba: Analisis de la contaminación del medio ambiente(pollution-stats)
     </p>
+    <p>
+        Francisco Javier Cerrada Begines: Analisis del consumo de electricidad(electricity-consumption-stats)
+    </p>
     <p style="font-weight: bold;">
         -  APIs:
     </p>
@@ -39,7 +42,7 @@
             (developed by <a href="https://github.com/fravaralg">
             [Javier Vargas Algaba]
         </a>)</li>
-        <li><a href="https://sos2122-12.herokuapp.com/api/v1/electricity-consumption-stats/docs">[https://sos2122-12.herokuapp.com/api/v1/electricity-consumption-stats/docs]</a>
+        <li><a href="https://sos2122-12.herokuapp.com/api/v2/electricity-consumption-stats/docs">[https://sos2122-12.herokuapp.com/api/v2/electricity-consumption-stats/docs]</a>
             <a href="https://sos2122-12.herokuapp.com/#/electricity-consumption-stats">[https://sos2122-12.herokuapp.com/#/electricity-consumption-stats]</a>
             (developed by <a href="https://github.com/Cerrada97">
             [Francisco Javier Cerrada Begines]
