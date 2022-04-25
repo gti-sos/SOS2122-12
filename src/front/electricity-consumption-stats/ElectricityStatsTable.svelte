@@ -34,7 +34,7 @@
 			mPFunction(cPage[0]+cPage[1]);
             const data = await res.json();
             electricity_s = data;
-			nPollutions = pollutions.length;
+			nElectricity_s = electricity_s.length;
             console.log("Received entries: "+electricity_s.length);
         }else{
 			Errores(res.status);
