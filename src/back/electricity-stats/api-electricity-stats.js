@@ -201,7 +201,7 @@ module.exports.register = (app, db) => {
     }
     app.get(BASE_API_URL+"/electricity-consumption-stats/:country/:year", (req,res)=>{
         var electricityCountry =req.params.country
-        var electricitytYear = req.params.year
+        var electricityYear = req.params.year
     
         db.find({},function(err, filteredElectricity){
     
@@ -212,7 +212,7 @@ module.exports.register = (app, db) => {
     
             filteredElectricity = filteredElectricity.filter((reg)=>
             {
-                return (reg.country == electricityCountry && reg.year == electricitytYear);
+                return (reg.country == electricityCountry && reg.year == electricityYear);
             });
     
             if (filteredElectricity==0){
