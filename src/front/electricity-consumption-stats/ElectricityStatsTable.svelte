@@ -21,13 +21,13 @@
     onMount(getElectricityStats);
     async function getElectricityStats(){
         console.log("Fetching electricity_s....");
-				let page = `/api/v1/electricity-consumption-stats?limit=${limit}&&offset=${offset*10}&&`;
-				if (from != null) {
-						page = page + `from=${from}&&`
-				}
-				if (to != null) {
-						page = page + `to=${to}&&`
-				}
+			let page = `/api/v1/electricity-consumption-stats?limit=${limit}&&offset=${offset*10}&&`;
+			if (from != null) {
+					page = page + `from=${from}&&`
+			}
+			if (to != null) {
+					page = page + `to=${to}&&`
+			}
         const res = await fetch(page); 
         if(res.ok){
 			let cPage = page.split(`limit=${limit}&&offset=${offset*10}`);
