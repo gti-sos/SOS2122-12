@@ -21,7 +21,7 @@
     onMount(getElectricityStats);
     async function getElectricityStats(){
         console.log("Fetching electricity_s....");
-			let page = `/api/v1/electricity-consumption-stats?limit=${limit}&&offset=${offset*10}&&`;
+			let page = `/api/v2/electricity-consumption-stats?limit=${limit}&&offset=${offset*10}&&`;
 			if (from != null) {
 					page = page + `from=${from}&&`
 			}
@@ -42,7 +42,7 @@
     }
 	async function insertElectricity(){
         console.log("Inserting electricity...."+JSON.stringify(newElectricity));
-        const res = await fetch("/api/v1/electricity-consumption-stats",
+        const res = await fetch("/api/v2/electricity-consumption-stats",
 			{
 				method: "POST",
 				body: JSON.stringify(newElectricity),
@@ -60,7 +60,7 @@
     }
 	async function BorrarElectricity(countryDelete, yearDelete){
         console.log("Deleting electricity....");
-        const res = await fetch("/api/v1/electricity-consumption-stats/"+countryDelete+"/"+yearDelete,
+        const res = await fetch("/api/v2/electricity-consumption-stats/"+countryDelete+"/"+yearDelete,
 			{
 				method: "DELETE"
 			}).then(function (res){
@@ -74,7 +74,7 @@
     }
 	async function BorrarElectricity_s(){
         console.log("Deleting electricity_s....");
-        const res = await fetch("/api/v1/electricity-consumption-stats/",
+        const res = await fetch("/api/v2/electricity-consumption-stats/",
 			{
 				method: "DELETE"
 			}).then(function (res){
@@ -86,7 +86,7 @@
     }
 	async function LoadElectricity_s(){
         console.log("Loading electricity_s....");
-        const res = await fetch("/api/v1/electricity-consumption-stats/loadInitialData",
+        const res = await fetch("/api/v2/electricity-consumption-stats/loadInitialData",
 			{
 				method: "GET"
 			}).then(function (res){
