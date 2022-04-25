@@ -12,8 +12,9 @@
     let updatedPlasticWaste;
     let updatedGaseousWaste;
     let updatedCollectedWaste;
-
+    
     onMount(getPollutionStats);
+    
     async function getPollutionStats(){
         console.log("Fetching pollutions....");
         const res = await fetch("/api/v1/pollution-stats/"+params.country+"/"+params.year); 
