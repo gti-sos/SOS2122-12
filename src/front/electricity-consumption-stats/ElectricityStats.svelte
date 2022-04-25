@@ -13,7 +13,7 @@
     onMount(getElectricityStats);
     async function getElectricityStats(){
         console.log("Fetching electricity....");
-        const res = await fetch("/api/v1/electricity-cosumption-stats/"+params.country+"/"+params.year); 
+        const res = await fetch("/api/v1/electricity-consumption-stats/"+params.country+"/"+params.year); 
         if(res.ok){
             const data = await res.json();
             electricity = data;
@@ -29,7 +29,7 @@
     }
     async function EditElectricity(){
         console.log("Updating electricity...."+updatedCountry);
-        const res = await fetch("/api/v1/electricity-cosumption-stats/"+params.country+"/"+params.year,
+        const res = await fetch("/api/v1/electricity-consumption-stats/"+params.country+"/"+params.year,
 			{
 				method: "PUT",
 				body: JSON.stringify({

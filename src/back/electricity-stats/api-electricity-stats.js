@@ -201,9 +201,9 @@ module.exports.register = (app, db) => {
     }
     app.get(BASE_API_URL+"/electricity-consumption-stats/:country/:year", (req,res)=>{
         var electricityCountry =req.params.country
-        var electricitytYear = req.params.year
+        var electricityYear = req.params.year
     
-        db.find({},function(err, filteredEmigrants){
+        db.find({},function(err, filteredElectricity){
     
             if(err){
                 res.sendStatus(500, "ERROR EN CLIENTE");
@@ -212,7 +212,7 @@ module.exports.register = (app, db) => {
     
             filteredElectricity = filteredElectricity.filter((reg)=>
             {
-                return (reg.country == electricitytCountry && reg.year == electricityYear);
+                return (reg.country == electricityCountry && reg.year == electricityYear);
             });
     
             if (filteredElectricity==0){
@@ -225,7 +225,7 @@ module.exports.register = (app, db) => {
                 filteredElectricity = pagination(req,filteredElectricity);
                 res.send(JSON.stringify(filteredElectricity,null,2));
             }
-            filteredEmigrants.forEach((element)=>{
+            filteredElectricity.forEach((element)=>{
                 delete element._id;
             });
             res.send(JSON.stringify(filteredElectricity[0],null,2));
