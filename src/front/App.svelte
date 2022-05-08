@@ -1,6 +1,7 @@
 <script>
 	import Router from "svelte-spa-router";
     import Home from "./Home.svelte";
+    import Graph from "./Graph.svelte";
    
     //Elementos de Javi
     import PollutionStatsTable from "./pollution-stats/PollutionStatsTable.svelte";
@@ -12,6 +13,8 @@
     
     const routes = {
         "/info": Home,
+        "/Graph": Graph,
+
         "/pollution-stats": PollutionStatsTable,
 		"/pollution-stats/:country/:year": PollutionStats,     
 
