@@ -14,22 +14,38 @@
     let PlasticWasteData = [];
     let GaseousWasteData = [];
     let CollectedWasteData = [];
+
+    //Datos electricity consumption
+    let electricityGenerationData = [];
+    let electricityConsumptionData = [];
+    let perCapitaConsumptionData = [];
+
     async function getData(){
         let res_pollution;
+        let res_electricity;
+
         if(country==null){
             res_pollution = await fetch(`/api/v2/pollution-stats`);
+            res_electricity = await fetch(`/api/v2/electricity-consumption-stats`);
         }else{
             res_pollution = await fetch(`/api/v2/pollution-stats/${country}`);
+            res_electricity = await fetch(`/api/v2/electricity-consumption-stats/${country}`);
         }
         if (res_pollution) {
             const json_pollution = await res_pollution.json();
+            const json_electricity = await res_electricity.json();
             guardaDatosPollution(json_pollution);
+            guardaDatosElectricity(json_electricity);
             if(country==null){
                 PlasticWasteData = [];
                 GaseousWasteData = [];
                 CollectedWasteData = [];
+                electricityGenerationData = [];
+                electricityConsumptionData = [];
+                perCapitaConsumptionData = [];
             }
             console.log(json_pollution);
+            console.log(json_electricity);
             country = null;
             await delay(1000);
             loadGraph();
@@ -38,6 +54,9 @@
             PlasticWasteData = [];
             GaseousWasteData = [];
             CollectedWasteData = [];
+            electricityGenerationData = [];
+            electricityConsumptionData = [];
+            perCapitaConsumptionData = [];
             await delay(1000);
             loadGraph();
         }
@@ -62,6 +81,27 @@
             console.log(GaseousWasteData);
             console.log(CollectedWasteData);
             console.log(PlasticWasteData);
+    }
+
+    async function guardaDatosElectricity(json){
+        for(let i = 0; i<json.length; i++){
+                let aux = [];
+                aux.push(json[i].year);
+                aux.push(json[i].electricity_generation);
+                GaseousWasteData.push(aux);
+                aux = [];
+                aux.push(json[i].year);
+                aux.push(json[i].electricity_consumption);
+                CollectedWasteData.push(aux);
+                
+                aux = [];
+                aux.push(json[i].year);
+                aux.push(json[i].per_capita_consumption);
+                PlasticWasteData.push(aux);
+            }
+            console.log(electricityGenerationData);
+            console.log(electricityConsumptionData);
+            console.log(perCapitaConsumptionData);
     }
     async function loadGraph(){
         
@@ -111,6 +151,20 @@
                 {
                     name: 'Residuos recogidos',
                     data: CollectedWasteData
+                },
+
+                //Electricity
+                {
+                    name: 'Generación de electricidad',
+                    data: electricityGenerationData
+                },
+                {
+                    name: 'Consumo de electricidad',
+                    data: electricityConsumptionData
+                },
+                {
+                    name: 'Consumo per capita',
+                    data: perCapitaConsumptionData
                 },
             ]
         
