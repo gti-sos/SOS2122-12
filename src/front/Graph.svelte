@@ -31,7 +31,7 @@
             res_pollution = await fetch(`/api/v2/pollution-stats/${country}`);
             res_electricity = await fetch(`/api/v2/electricity-consumption-stats/${country}`);
         }
-        if (res_pollution) {
+        if (res_pollution.ok && res_electricity.ok) {
             const json_pollution = await res_pollution.json();
             const json_electricity = await res_electricity.json();
             guardaDatosPollution(json_pollution);
@@ -88,16 +88,16 @@
                 let aux = [];
                 aux.push(json[i].year);
                 aux.push(json[i].electricity_generation);
-                GaseousWasteData.push(aux);
+                electricityGenerationData.push(aux);
                 aux = [];
                 aux.push(json[i].year);
                 aux.push(json[i].electricity_consumption);
-                CollectedWasteData.push(aux);
+                electricityConsumptionData.push(aux);
                 
                 aux = [];
                 aux.push(json[i].year);
                 aux.push(json[i].per_capita_consumption);
-                PlasticWasteData.push(aux);
+                perCapitaConsumptionData.push(aux);
             }
             console.log(electricityGenerationData);
             console.log(electricityConsumptionData);
