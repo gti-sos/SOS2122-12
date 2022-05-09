@@ -6,6 +6,7 @@
     //Elementos de Javi
     import PollutionStatsTable from "./pollution-stats/PollutionStatsTable.svelte";
     import PollutionStats from "./pollution-stats/PollutionStats.svelte";
+    import GraphPollutionStats from "./pollution-stats/GraphPollution.svelte";
 
     //Elementos de Fran
     import ElectricityStatsTable from "./electricity-consumption-stats/ElectricityStatsTable.svelte";
@@ -16,7 +17,8 @@
         "/Graph": Graph,
 
         "/pollution-stats": PollutionStatsTable,
-		"/pollution-stats/:country/:year": PollutionStats,     
+		"/pollution-stats/:country/:year": PollutionStats,
+        "/pollution-stats_graph": GraphPollutionStats,     
 
         "/electricity-consumption-stats": ElectricityStatsTable,
 		"/electricity-consumption-stats/:country/:year": ElectricityStats         
