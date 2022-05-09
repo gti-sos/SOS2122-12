@@ -17,7 +17,6 @@
         "/info": Home,
         "/Graph/:country": Graph,
 
-
         "/pollution-stats": PollutionStatsTable,
 		"/pollution-stats/:country/:year": PollutionStats,
         "/pollution-stats_graph": GraphPollutionStats,     
