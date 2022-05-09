@@ -11,6 +11,7 @@
     //Elementos de Fran
     import ElectricityStatsTable from "./electricity-consumption-stats/ElectricityStatsTable.svelte";
     import ElectricityStats from "./electricity-consumption-stats/ElectricityStats.svelte";
+    import GraphElectricityStats from "./electricity-consumption-stats/GraphElectricity.svelte";
     
     const routes = {
         "/info": Home,
@@ -21,7 +22,8 @@
         "/pollution-stats_graph": GraphPollutionStats,     
 
         "/electricity-consumption-stats": ElectricityStatsTable,
-		"/electricity-consumption-stats/:country/:year": ElectricityStats         
+		"/electricity-consumption-stats/:country/:year": ElectricityStats,
+        "/electricity-consumption-stats_graph": GraphElectricityStats       
     };
 </script>
 
