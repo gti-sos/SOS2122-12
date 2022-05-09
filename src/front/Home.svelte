@@ -34,11 +34,16 @@
         Francisco Javier Cerrada Begines: Analisis del consumo de electricidad(electricity-consumption-stats)
     </p>
     <p style="font-weight: bold;">
+        - Grafica Grupal:
+    </p>
+    <a href="http://sos2122-12.herokuapp.com/#/Graph/null">[http://sos2122-12.herokuapp.com/#/Graph/null]</a>
+    <p style="font-weight: bold;">
         -  APIs:
     </p>
     <ul>
         <li><a href="https://sos2122-12.herokuapp.com/api/v2/pollution-stats/docs">[https://sos2122-12.herokuapp.com/api/v2/pollution-stats/docs]</a>
             <a href="https://sos2122-12.herokuapp.com/#/pollution-stats">[https://sos2122-12.herokuapp.com/#/pollution-stats]</a>
+            <a href="https://sos2122-12.herokuapp.com/#/pollution-stats_graph">[https://sos2122-12.herokuapp.com/#/pollution-stats_graph]</a>
             (developed by <a href="https://github.com/fravaralg">
             [Javier Vargas Algaba]
         </a>)</li>
