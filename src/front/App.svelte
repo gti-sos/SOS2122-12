@@ -14,7 +14,7 @@
     
     const routes = {
         "/info": Home,
-        "/Graph": Graph,
+        "/Graph/:country": Graph,
 
         "/pollution-stats": PollutionStatsTable,
 		"/pollution-stats/:country/:year": PollutionStats,
