@@ -44,6 +44,7 @@
         <li><a href="https://sos2122-12.herokuapp.com/api/v2/pollution-stats/docs">[https://sos2122-12.herokuapp.com/api/v2/pollution-stats/docs]</a>
             <a href="https://sos2122-12.herokuapp.com/#/pollution-stats">[https://sos2122-12.herokuapp.com/#/pollution-stats]</a>
             <a href="https://sos2122-12.herokuapp.com/#/pollution-stats_graph">[https://sos2122-12.herokuapp.com/#/pollution-stats_graph]</a>
+            <a href="https://sos2122-12.herokuapp.com/#/pollution-stats_graph_jscharting">[https://sos2122-12.herokuapp.com/#/pollution-stats_graph_jscharting]</a>
             (developed by <a href="https://github.com/fravaralg">
             [Javier Vargas Algaba]
         </a>)</li>

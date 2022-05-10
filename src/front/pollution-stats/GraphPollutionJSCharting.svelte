@@ -36,7 +36,7 @@
               crosshair: true
           },
           yAxis: {
-              label_text: 'Valores'
+              label_text: 'Valores(mt)'
           },
           series: [{
               name: 'Plástico',
