@@ -8,6 +8,7 @@
     import PollutionStats from "./pollution-stats/PollutionStats.svelte";
     import GraphPollutionStats from "./pollution-stats/GraphPollution.svelte";
     import GraphPollutionStatsJSCharting from "./pollution-stats/GraphPollutionJSCharting.svelte";
+    import GraphInmigrant from "./pollution-stats/Inmigrant-stats.svelte";
 
     //Elementos de Fran
     import ElectricityStatsTable from "./electricity-consumption-stats/ElectricityStatsTable.svelte";
@@ -21,7 +22,8 @@
         "/pollution-stats": PollutionStatsTable,
 		"/pollution-stats/:country/:year": PollutionStats,
         "/pollution-stats_graph": GraphPollutionStats,
-        "/pollution-stats_graph_jscharting": GraphPollutionStatsJSCharting,      
+        "/pollution-stats_graph_jscharting": GraphPollutionStatsJSCharting,
+        "/pollution-stats_inmigrant": GraphInmigrant,      
 
         "/electricity-consumption-stats": ElectricityStatsTable,
 		"/electricity-consumption-stats/:country/:year": ElectricityStats,
