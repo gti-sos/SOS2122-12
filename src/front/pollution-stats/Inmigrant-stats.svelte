@@ -17,7 +17,7 @@
         let res_pollution;
         let res_registrations;
         res_pollution = await fetch(`/api/v2/pollution-stats`);
-        res_registrations = await fetch(`https://sos2122-13.herokuapp.com/api/v2/immigrants`);
+        res_registrations = await fetch(`/remoteImmigrant`);
         if (res_pollution.ok && res_registrations.ok) {
             const json = await res_pollution.json();
             const json_reg = await res_registrations.json();

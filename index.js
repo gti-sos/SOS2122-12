@@ -1,6 +1,7 @@
 const cool = require("cool-ascii-faces");
 const express = require("express");
 const bodyParser =require("body-parser");
+const request = require('request');
 
 
 const pollution_stats = require("./src/back/pollution-stats/index.js");
@@ -14,6 +15,15 @@ const port = process.env.PORT || 8082;
 
 app.use("/", express.static('public'));
 app.use(bodyParser.json());
+
+var paths='/remoteImmigrant';
+var apiServerHost = 'https://sos2122-13.herokuapp.com/api/v2/immigrants';
+
+app.use(paths, function(req, res) {
+  var url = apiServerHost + req.url;
+  req.pipe(request(url)).pipe(res);
+});
+
 
 app.get("/cool",(req,res)=>{
     console.log("Requested /cool route");
