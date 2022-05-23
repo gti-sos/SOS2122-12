@@ -50,6 +50,7 @@
         </a>)</li>
         <li><a href="https://sos2122-12.herokuapp.com/api/v2/electricity-consumption-stats/docs">[https://sos2122-12.herokuapp.com/api/v2/electricity-consumption-stats/docs]</a>
             <a href="https://sos2122-12.herokuapp.com/#/electricity-consumption-stats">[https://sos2122-12.herokuapp.com/#/electricity-consumption-stats]</a>
+            <a href="https://sos2122-12.herokuapp.com/#/electricity-consumption-stats_graph">[https://sos2122-12.herokuapp.com/#/electricity-consumption-stats_graph]</a>
             (developed by <a href="https://github.com/Cerrada97">
             [Francisco Javier Cerrada Begines]
         </a>)</li>
