@@ -1,126 +1,99 @@
 <script>
-    import { onMount } from "svelte";
-    
-    
-        const BASE_API_PATH = "/api/v2";
-        let electricityData=[];
-        let electricityCountryYear = [];
-        let electricityGenerationData = [];
-        let electricityConsumptionData = [];
-        let perCapitaConsumptionData = [];
-     
-            let errorMsg="Tiene que cargar los datos para visualizar las analíticas.";
-        let cargados = false;
+  import {onMount} from 'svelte';
+  export let params = {};
+  import Button from 'sveltestrap/src/Button.svelte';
+  import {pop} from "svelte-spa-router";
+  const delay = ms => new Promise(res => setTimeout(res, ms));
+  let electricityGenerationData = [];
+  let electricityConsumptionData = [];
+  let electricityPerCapitaData = [];
+  let country = params.country
+  
+async function loadGraph(){
+  var chart = new CanvasJS.Chart("chartContainer", {
+animationEnabled: true,
+title:{
+  text: "Relación entre usuarios de internet y población urbana"
+},
+axisY: {
+  title: "years",
+  includeZero: true
+},
+legend: {
+  cursor:"pointer",
+  itemclick : toggleDataSeries
+},
+toolTip: {
+  shared: true,
+  content: toolTipFormatter
+},
+data: [{
+  type: "bar",
+  showInLegend: true,
+  name: "electricity consumption",
+  color: "black",
+  dataPoints: electricityGenerationData
 
-        async function loadGraphWithDelay() {
-            setTimeout(loadGraph, 1000);
-        }
+},
+{
+  type: "bar",
+  showInLegend: true,
+  name: "electricity consumption",
+  color: "red",
+  dataPoints: electricityConsumptionData
 
-        async function loadGraph() {
-            console.log("Fetching data...");
-            const res = await fetch(BASE_API_PATH + "/electricity-consumption-stats");
-            electricityData = await res.json();
-            if (res.ok) {
-              electricityData.forEach(stat => {
-                electricityCountryYear.push(stat.country+"-"+stat.year);
-                electricityGenerationData.push(stat.electricity_generation);
-                electricityConsumptionData.push(stat.electricity_consumption);
-                perCapitaConsumptionData.push(stat.per_capita_consumption);
-                });
-                cargados=true;
-            }
-            
-        console.log("Electricity data: " + electricityData);
-                
-        Highcharts.chart('container', {
-          chart: {
-              type: 'column'
-          },
-          title: {
-              text: 'Porcentajes de generación, consumo y consumo per capita de electricidad'
-          },
-          xAxis: {
-              categories: electricityCountryYear,
-              crosshair: true
-          },
-          yAxis: {
-              min: 0,
-              title: {
-                  text: 'Rainfall (mm)'
-              }
-          },
-          tooltip: {
-              headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-              pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                  '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-              footerFormat: '</table>',
-              shared: true,
-              useHTML: true
-          },
-          plotOptions: {
-              column: {
-                  pointPadding: 0.2,
-                  borderWidth: 0
-              }
-          },
-          series: [{
-              name: 'Generación de electricidad',
-              data: electricityGenerationData
-          }, {
-              name: 'Consumo de electricidad',
-              data: electricityConsumptionData
-          }, {
-              name: 'Consumo per capita',
-              data: perCapitaConsumptionData
-          }]
-      });
-        }
-        onMount(loadGraphWithDelay);
-      </script>
+},
+{
+  type: "bar",
+  showInLegend: true,
+  name: "electricity consumption per capita",
+  color: "blue",
+  dataPoints: 
+    electricityPerCapitaData
+}]
+});
+chart.render();
+function toolTipFormatter(e) {
+var str = "";
+var total = 0 ;
+var str2 ;
+for (var i = 0; i < e.entries.length; i++){
+  var str1 = "<span style= \"color:"+e.entries[i].dataSeries.color + "\">" + e.entries[i].dataSeries.name + "</span>: <strong>"+  e.entries[i].dataPoint.y + "</strong> <br/>" ;
+  total = e.entries[i].dataPoint.y + total;
+  str = str.concat(str1);
+}
+str2 = "<strong>" + e.entries[0].dataPoint.label + "</strong> <br/>";
+return (str2.concat(str));
+}
+function toggleDataSeries(e) {
+if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+  e.dataSeries.visible = false;
+}
+else {
+  e.dataSeries.visible = true;
+}
+chart.render();
+}
+}
+onMount(loadGraph);
+</script>
+<svelte:head>
+  <script src="https://canvasjs.com/assets/script/canvasjs.min.js" on:load="{loadGraph}"></script>
+</svelte:head>
+
+<main>
+  <br>
+      <h1 align="center">Gráficas de electricity</h1>
       
-      <svelte:head>
-      <script src="https://code.highcharts.com/highcharts.js"></script>
-      <script src="https://code.highcharts.com/modules/series-label.js"></script>
-      <script src="https://code.highcharts.com/modules/exporting.js"></script>
-      <script src="https://code.highcharts.com/modules/export-data.js"></script>
-      <script src="https://code.highcharts.com/modules/accessibility.js" on:load="{loadGraphWithDelay}"></script>
-      </svelte:head>
-      
-      <main>
-        <div>
-            <h2>
-              Analíticas
-            </h2>
-          </div>
-      
-        <div>
-            <figure class="highcharts-figure">
-              <div id="container" />
-              <p class="highcharts-description">
-                Porcentajes de generación, consumo y consumo per capita de electricidad.
-              </p>
-            </figure>
-        </div>
-        
-      
-        <div>
-          {#if !cargados}
-            <p class="error">{errorMsg}</p>
-          {/if}
-        </div>
-      </main>
-      
-      <style>
-        main {
-            text-align: center;
-            padding: 30px;       
-        }
-        p.error{
-          color: red; 
-          text-align:center;
-          font-size: 20px;
-          margin-top:80px;
-        }
-        
-       
-      </style>
+      <br>
+      <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+      <br><br>
+
+      <br>
+      <Button outline color="dark" on:click="{()=>{
+          pop();
+      }}">
+      Volver
+      </Button>
+      <br><br>
+</main>
