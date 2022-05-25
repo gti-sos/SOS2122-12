@@ -4,7 +4,6 @@ const bodyParser =require("body-parser");
 const request = require('request');
 const cors = require('cors');
 
-
 const pollution_stats = require("./src/back/pollution-stats/index.js");
 const electricity_consumption_stats = require("./src/back/electricity-stats/api-electricity-stats.js");
 const Datastore = require('nedb');
