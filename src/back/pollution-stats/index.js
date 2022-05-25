@@ -4,7 +4,7 @@ const API_DOC_PORTAL = "https://documenter.getpostman.com/view/19481675/UVyn2JiB
 
 var pollutions = [
     {
-        country:"eeuu",
+        country:"usa",
         year:2019,
         plastic_waste:17792,
         gaseous_waste: 5036.047,
@@ -12,7 +12,7 @@ var pollutions = [
 
     },
     {
-        country:"spain",
+        country:"españa",
         year:2019,
         plastic_waste:1586,
         gaseous_waste: 255.831,
@@ -34,7 +34,7 @@ var pollutions = [
         collected_waste:38
     },
     {
-        country:"italy",
+        country:"italia",
         year:2019,
         plastic_waste:500,
         gaseous_waste: 332.855,
