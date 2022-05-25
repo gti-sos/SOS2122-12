@@ -18,7 +18,7 @@
         await delay(1000);
         let res_pollution;
         let res_registrations;
-        
+
         res_pollution = await fetch(`/api/v2/pollution-stats`);
         res_registrations = await fetch(`https://sos2122-13.herokuapp.com/api/v2/emigrants`);
         if (res_pollution.ok && res_registrations.ok) {
@@ -150,7 +150,6 @@
         <script src="https://code.highcharts.com/modules/exporting.js"></script>
         <script src="https://code.highcharts.com/modules/export-data.js"></script>
         <script src="https://code.highcharts.com/modules/accessibility.js" on:load="{loadGraph}"></script>
-    
     </svelte:head>
     
     <main>
