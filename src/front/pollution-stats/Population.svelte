@@ -160,7 +160,7 @@
         </UncontrolledAlert>
         {/if}
         <br>
-        <h1 align="center">Gráficas integrada de contaminación ambiental y tasa de inmigrantes</h1>
+        <h1 align="center">Gráficas integrada de contaminación ambiental y estudio de la población en la actualidad</h1>
         <br>
         <figure class="highcharts-figure">
             <div id="container"></div>

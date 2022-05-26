@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 var paths='/remoteImmigrant';
-var apiServerHost = 'https://sos2122-13.herokuapp.com/api/v2/immigrants';
+var apiServerHost='https://sos2122-13.herokuapp.com/api/v2/immigrants';
 
 app.use(paths, function(req, res) {
   var url = apiServerHost + req.url;
