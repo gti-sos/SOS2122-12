@@ -10,9 +10,9 @@
     let PlasticWasteData = [];
     let GaseousWasteData = [];
     let CollectedWasteData = [];
-    let MenData = [];
-    let WomenData = [];
-    let PercentagesData = [];
+    let DeathData = [];
+    let LifeData = [];
+    let BirthData = [];
 
     async function getData(){
         await delay(1000);
@@ -20,7 +20,7 @@
         let res_registrations;
 
         res_pollution = await fetch(`/api/v2/pollution-stats`);
-        res_registrations = await fetch(`https://sos2122-13.herokuapp.com/api/v2/emigrants`);
+        res_registrations = await fetch(`https://sos2122-10.herokuapp.com/api/v2/population-levels`);
         if (res_pollution.ok && res_registrations.ok) {
             const json = await res_pollution.json();
             const json_reg = await res_registrations.json();
@@ -34,14 +34,14 @@
                 fechas.push(fecha);
                 if(country_years.includes(fecha)){
                     let index = country_years.indexOf(fecha);
-                    MenData.push(json_reg[index].men);
-                    WomenData.push(json_reg[index].women);
-                    PercentagesData.push(json_reg[index].percentages);
+                    DeathData.push(json_reg[index].death_rate);
+                    LifeData.push(json_reg[index].life_expectancy_birth);
+                    BirthData.push(json_reg[index].birth_rate);
                     json_reg.splice(index, 1);
                 }else{
-                    MenData.push(0);
-                    WomenData.push(0);
-                    PercentagesData.push(0);
+                    DeathData.push(0);
+                    LifeData.push(0);
+                    BirthData.push(0);
                 }
                 PlasticWasteData.push(json[i].plastic_waste);
                 GaseousWasteData.push(json[i].gaseous_waste);
@@ -49,9 +49,9 @@
             }
             for(let i = 0; i<rangoMax; i++){
                 fechas.push(json_reg[i].country+"/"+json_reg[i].year);
-                MenData.push(json_reg[i].men);
-                WomenData.push(json_reg[i].women);
-                PercentagesData.push(json_reg[i].percentages);
+                DeathData.push(json_reg[i].death_rate);
+                LifeData.push(json_reg[i].life_expectancy_birth);
+                BirthData.push(json_reg[i].birth_rate);
                 PlasticWasteData.push(0);
                 GaseousWasteData.push(0);
                 CollectedWasteData.push(0);
@@ -127,14 +127,14 @@
                     data: CollectedWasteData
                 },
                 {
-                    name: 'Hombres',
-                    data: MenData,
+                    name: 'Tasa de mortalidad',
+                    data: DeathData,
                 },{
-                    name: 'Mujeres',
-                    data: WomenData,
+                    name: 'Esperanza de vida',
+                    data: LifeData,
                 },{
-                    name: 'Porcentajes',
-                    data: PercentagesData,
+                    name: 'Tasa de natalidad',
+                    data: BirthData,
                 }
             ]
         
