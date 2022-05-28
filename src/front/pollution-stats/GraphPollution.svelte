@@ -18,9 +18,9 @@ import { onMount } from "svelte";
         if (res.ok) {
           WasteData.forEach(stat => {
             WasteCountryYear.push(stat.country+"-"+stat.year);
-            PlasticWasteData.push(stat.plastic_waste);
-            GaseousWasteData.push(stat.gaseous_waste);
-            CollectedWasteData.push(stat.collected_waste);
+            PlasticWasteData.push(parseInt(stat.plastic_waste));
+            GaseousWasteData.push(parseInt(stat.gaseous_waste));
+            CollectedWasteData.push(parseInt(stat.collected_waste));
             });
             cargados=true;
         }
