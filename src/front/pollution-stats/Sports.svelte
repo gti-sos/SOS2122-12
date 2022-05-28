@@ -4,70 +4,72 @@
     import {pop} from "svelte-spa-router";
     const delay = ms => new Promise(res => setTimeout(res, ms));
     
-    let Win = [];
-    let Lose = [];
+    let Assists = [];
+    let Turnovers = [];
     let ejeX = [];
     async function getData(){
         const options = {
             method: "GET",
             headers: {
-                "X-RapidAPI-Host": "api-basketball.p.rapidapi.com",
+                "X-RapidAPI-Host": "basketball-data.p.rapidapi.com",
                 "X-RapidAPI-Key": "2b111c7892msh051caecf38760abp18d9d2jsn309e375150fc"
             }
         };
-        let res = await fetch("https://api-basketball.p.rapidapi.com/standings?league=12&season=2019-2020",options);
+        let res = await fetch("https://basketball-data.p.rapidapi.com/tournament/leaderboard/assist?tournamentId=89",options);
         await delay(2000);
         if (res.ok) {
             let json = await res.json();
-            json = json.data;
             for(let i = 0; i<10; i++){
                 
                 //Nombre
-                ejeX.push(json[i].response.team.name);
+                ejeX.push(json[i].team.name);
                 //Dato de partidos ganados
-                Win.push(json[i].response.games.win.total);
+                Assists.push(json[i].totalAssistsMade);
                 //Dato de partidos perdidos
-                Lose.push(json[i].response.games.lose.total);
+                Turnovers.push(json[i].totalTurnovers);
     
             }
             loadGraph();
         }else{
-            Win = [];
-            Lose = [];
             ejeX = [];
+            Assists = [];
+            Turnovers = [];
             loadGraph();
         }
     }
     
     async function loadGraph(){
-        var chart = JSC.chart('chartDiv', {
-          debug: true,
-          type: 'horizontalColumn',
-          title_label_text: 'Partidos ganados y perdidos',
-          xAxis: {
-              categories: ejeX,
-              crosshair: true
-          },
-          yAxis: {
-              label_text: 'Valores'
-          },
-          series: [{
-              name: 'Partidos ganados',
-              id: 's1',
-              points: Win
-          }, {
-              name: 'Partidos perdidos',
-              points: Lose
-          }]
-      });
+        var chart = bb.generate({
+            bindto: "#barChart",
+            axis: {
+                x: {
+                type: "category",
+                categories: ejeX
+                }
+            },
+            data: {
+                type: "bar",
+                labels:true,
+                columns: [
+                    Assists,
+                    Turnovers
+                ]
+            },
+            bar: {
+                width: {
+                ratio: 0.5
+                }
+            }
+        });
     }
     
     onMount(getData);
     
     </script>
     <svelte:head>
-
-        <script src="https://code.jscharting.com/latest/jscharting.js" on:load="{loadGraph}"></script>
+        <script src="https://d3js.org/d3.v6.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/billboard.js/3.4.1/billboard.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/billboard.js/3.4.1/billboard.min.js" on:load="{loadGraph}"></script>
     
     </svelte:head>
     
@@ -77,7 +79,7 @@
               Análiticas
             </h2>
         </div>
-        <div id="chartDiv" style="max-width: 740px;height: 400px;margin: 0px auto;"></div>
+        <div id="barChart" align="center"></div>
       
         
         <br>
