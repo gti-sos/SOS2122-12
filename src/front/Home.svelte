@@ -38,7 +38,7 @@
     </p>
     <a href="http://sos2122-12.herokuapp.com/#/analytics">[http://sos2122-12.herokuapp.com/#/analytics]</a>
     <p style="font-weight: bold;">
-        - Integraciones Javier Vargas:
+        - Integraciones:
     </p>
     <li><a href="https://sos2122-12.herokuapp.com/#/integrations">[https://sos2122-12.herokuapp.com/#/integrations]</a></li>
     <p style="font-weight: bold;">
