@@ -1,6 +1,5 @@
 <script>
     import {onMount} from 'svelte';
-    export let params = {};
     import Button from 'sveltestrap/src/Button.svelte';
     import {pop} from "svelte-spa-router";
     import UncontrolledAlert from "sveltestrap/src/UncontrolledAlert.svelte";
@@ -9,7 +8,11 @@
     let errorC = null;
     
     //Pais
-    let country = params.country;
+    let country = "spain";
+    //Fechas
+    let fechas = [];
+    let fechas_pollution = [];
+    let fechas_electricity = [];
     //Datos population levels
     let PlasticWasteData = [];
     let GaseousWasteData = [];
@@ -23,19 +26,23 @@
     async function getData(){
         let res_pollution;
         let res_electricity;
+        await fetch(`/api/v2/pollution-stats/loadInitialData`);
+        await fetch(`/api/v2/electricity-consumption-stats/loadInitialData`);
 
-        if(country==null){
-            res_pollution = await fetch(`/api/v2/pollution-stats`);
-            res_electricity = await fetch(`/api/v2/electricity-consumption-stats`);
-        }else{
-            res_pollution = await fetch(`/api/v2/pollution-stats/${country}`);
-            res_electricity = await fetch(`/api/v2/electricity-consumption-stats/${country}`);
-        }
+        res_pollution = await fetch(`/api/v2/pollution-stats`);
+        res_electricity = await fetch(`/api/v2/electricity-consumption-stats`);
+        
         if (res_pollution.ok && res_electricity.ok) {
             const json_pollution = await res_pollution.json();
             const json_electricity = await res_electricity.json();
-            guardaDatosPollution(json_pollution);
-            guardaDatosElectricity(json_electricity);
+            for(let i=0;i<json_pollution.length;i++){
+                fechas_pollution.push(json_pollution[i].country+"/"+json_pollution[i].year);
+            }
+            for(let i=0;i<json_electricity.length;i++){
+                fechas_electricity.push(json_electricity[i].country+"/"+json_electricity[i].year);
+            }
+            guardaDatosPollution(json_pollution,json_electricity);
+            guardaDatosElectricity(json_pollution,json_electricity);
             if(country==null){
                 PlasticWasteData = [];
                 GaseousWasteData = [];
@@ -44,9 +51,7 @@
                 electricityConsumptionData = [];
                 perCapitaConsumptionData = [];
             }
-            console.log(json_pollution);
-            console.log(json_electricity);
-            country = null;
+            console.log(fechas);
             await delay(1000);
             loadGraph();
         }else{
@@ -62,51 +67,52 @@
         }
     }
     
-    async function guardaDatosPollution(json){
-        for(let i = 0; i<json.length; i++){
-                let aux = [];
-                aux.push(json[i].year);
-                aux.push(json[i].gaseous_waste);
-                GaseousWasteData.push(aux);
-                aux = [];
-                aux.push(json[i].year);
-                aux.push(json[i].collected_waste);
-                CollectedWasteData.push(aux);
-                
-                aux = [];
-                aux.push(json[i].year);
-                aux.push(json[i].plastic_waste);
-                PlasticWasteData.push(aux);
+    async function guardaDatosPollution(json_pollution,json_electricity){
+        for(let i = 0; i<json_pollution.length; i++){
+            let fecha = json_pollution[i].country+"/"+json_pollution[i].year;
+            fechas.push(fecha);
+            if(fechas_electricity.includes(fecha)){
+                let index = fechas_electricity.indexOf(fecha);
+                electricityGenerationData.push(json_electricity[index].electricity_generation);
+                electricityConsumptionData.push(json_electricity[index].electricity_consumption);
+                perCapitaConsumptionData.push(json_electricity[index].per_capita_consumption);
+            }else{
+                electricityGenerationData.push(0);
+                electricityConsumptionData.push(0);
+                perCapitaConsumptionData.push(0);
             }
-            console.log(GaseousWasteData);
-            console.log(CollectedWasteData);
-            console.log(PlasticWasteData);
+            GaseousWasteData.push(json_pollution[i].gaseous_waste);
+            CollectedWasteData.push(json_pollution[i].collected_waste);
+            PlasticWasteData.push(json_pollution[i].plastic_waste);
+                
+        }
     }
 
-    async function guardaDatosElectricity(json){
-        for(let i = 0; i<json.length; i++){
-                let aux = [];
-                aux.push(json[i].year);
-                aux.push(json[i].electricity_generation);
-                electricityGenerationData.push(aux);
-                aux = [];
-                aux.push(json[i].year);
-                aux.push(json[i].electricity_consumption);
-                electricityConsumptionData.push(aux);
-                
-                aux = [];
-                aux.push(json[i].year);
-                aux.push(json[i].per_capita_consumption);
-                perCapitaConsumptionData.push(aux);
+    async function guardaDatosElectricity(json_pollution,json_electricity){
+        for(let i = 0; i<json_electricity.length; i++){
+            let fecha = json_electricity[i].country+"/"+json_electricity[i].year;
+            fechas.push(fecha);
+            if(fechas_pollution.includes(fecha)){
+                let index = fechas_pollution.indexOf(fecha);
+                GaseousWasteData.push(json_pollution[index].gaseous_waste);
+                CollectedWasteData.push(json_pollution[index].collected_waste);
+                PlasticWasteData.push(json_pollution[index].plastic_waste);
+            }else{
+                GaseousWasteData.push(0);
+                CollectedWasteData.push(0);
+                PlasticWasteData.push(0);
             }
-            console.log(electricityGenerationData);
-            console.log(electricityConsumptionData);
-            console.log(perCapitaConsumptionData);
+            electricityGenerationData.push(json_electricity[i].electricity_generation);
+            electricityConsumptionData.push(json_electricity[i].electricity_consumption);
+            perCapitaConsumptionData.push(json_electricity[i].per_capita_consumption);    
+        }
     }
     async function loadGraph(){
         
         Highcharts.chart('container', {
-        
+            chart: {
+                type: 'column'
+            },
             title: {
                 text: `Gráfico común a todo el grupo`
             },
@@ -192,16 +198,6 @@
         {/if}
         <br>
         
-        <div align="center">
-            <input type="text" bind:value="{country}">
-            <Button outline color="info" on:click="{()=>{
-                window.location.href = `/#/Graph/${country}`;
-                location.reload();
-                
-            }}">
-            Buscar
-            </Button>
-        </div>
         <br>
         <figure class="highcharts-figure">
             <div id="container"></div>
