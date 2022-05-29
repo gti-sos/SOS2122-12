@@ -25,6 +25,23 @@ app.use(paths, function(req, res) {
   req.pipe(request(url)).pipe(res);
 });
 
+//cerrada
+var paths1='/remoteEmigrant';
+var apiServerHost1='https://sos2122-13.herokuapp.com/api/v2/emigrants';
+
+var paths2='/remoteInternetPopulation';
+var apiServerHost2='https://sos2122-10.herokuapp.com/api/v2/internet-population';
+
+app.use(paths1, function(req, res) {
+  var url = apiServerHost1 + req.url;
+  req.pipe(request(url)).pipe(res);
+});
+
+app.use(paths2, function(req, res) {
+  var url = apiServerHost2 + req.url;
+  req.pipe(request(url)).pipe(res);
+});
+
 
 app.get("/cool",(req,res)=>{
     console.log("Requested /cool route");
