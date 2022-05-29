@@ -16,7 +16,10 @@
     import ElectricityStatsTable from "./electricity-consumption-stats/ElectricityStatsTable.svelte";
     import ElectricityStats from "./electricity-consumption-stats/ElectricityStats.svelte";
     import GraphElectricityStats from "./electricity-consumption-stats/GraphElectricity.svelte";
-    
+    import HighchartElectricity from "./electricity-consumption-stats/HighchartElectricity.svelte";
+    import GraphEmigrant from "./electricity-consumption-stats/Emigrant.svelte";
+    import GraphInternetPopulation from "./electricity-consumption-stats/InternetPopulation.svelte";
+
     const routes = {
         "/info": Home,
         "/Graph/:country": Graph,
@@ -30,7 +33,10 @@
 
         "/electricity-consumption-stats": ElectricityStatsTable,
 		"/electricity-consumption-stats/:country/:year": ElectricityStats,
-        "/electricity-consumption-stats_graph": GraphElectricityStats       
+        "/electricity-consumption-stats_graph": GraphElectricityStats,
+        "/electricity-consumption-stats_graph_highchart": HighchartElectricity,
+        "/electricity-consumption-stats_emigrant": GraphEmigrant,
+        "/electricity-consumption-stats_internet_population": GraphInternetPopulation   
     };
 </script>
 
