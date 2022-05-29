@@ -42,6 +42,10 @@
     </p>
     <li><a href="https://sos2122-12.herokuapp.com/#/integrations">[https://sos2122-12.herokuapp.com/#/integrations]</a></li>
     <p style="font-weight: bold;">
+        - Vídeos:
+    </p>
+    <li><a href="https://sos2122-12.herokuapp.com/#/about">[https://sos2122-12.herokuapp.com/#/about]</a></li>
+    <p style="font-weight: bold;">
         -  APIs:
     </p>
     <ul>

@@ -3,6 +3,7 @@
     import Home from "./Home.svelte";
     import Graph from "./Graph.svelte";
     import Integration from "./Integration.svelte";
+    import Videos from "./Videos.svelte";
    
     //Elementos de Javi
     import PollutionStatsTable from "./pollution-stats/PollutionStatsTable.svelte";
@@ -24,6 +25,7 @@
         "/info": Home,
         "/analytics": Graph,
         "/integrations": Integration,
+        "/about": Videos,
 
         "/pollution-stats": PollutionStatsTable,
 		"/pollution-stats/:country/:year": PollutionStats,
