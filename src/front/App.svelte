@@ -2,6 +2,7 @@
 	import Router from "svelte-spa-router";
     import Home from "./Home.svelte";
     import Graph from "./Graph.svelte";
+    import Integration from "./Integration.svelte";
    
     //Elementos de Javi
     import PollutionStatsTable from "./pollution-stats/PollutionStatsTable.svelte";
@@ -21,7 +22,8 @@
     
     const routes = {
         "/info": Home,
-        "/Graph/:country": Graph,
+        "/analytics": Graph,
+        "/integrations": Integration,
 
         "/pollution-stats": PollutionStatsTable,
 		"/pollution-stats/:country/:year": PollutionStats,
