@@ -12,6 +12,14 @@
                     <li><a href="/#/pollution-stats_sport">Gráfica externa 2</a></li>
                 </ul>
             </li>
+            <li> Francisco Javier Cerrada Begines(Consumo de electricidad):
+                <ul>
+                    <li><a href="/#/electricity-consumption-stats_emigrant">Integración emigrantes</a></li>
+                    <li><a href="/#/electricity-consumption-stats_internet_population">Integración usuarios de internet</a></li>
+                    <li><a href="/#/electricity-consumption-stats_api_externa">Gráfica externa 1</a></li>
+                    <li><a href="/#/electricity-consumption-stats_api_externa2">Gráfica externa 2</a></li>
+                </ul>
+            </li>
         </ul>
     
         <br>
