@@ -23,6 +23,8 @@
     import HighchartElectricity from "./electricity-consumption-stats/HighchartElectricity.svelte";
     import GraphEmigrant from "./electricity-consumption-stats/Emigrant.svelte";
     import GraphInternetPopulation from "./electricity-consumption-stats/InternetPopulation.svelte";
+    import GraphVuelo from "./electricity-consumption-stats/ApiExterna.svelte";
+    import GraphCovid from "./electricity-consumption-stats/ApiExterna2.svelte";
 
     const routes = {
         "/info": Home,
@@ -44,7 +46,9 @@
         "/electricity-consumption-stats_graph": GraphElectricityStats,
         "/electricity-consumption-stats_graph_highchart": HighchartElectricity,
         "/electricity-consumption-stats_emigrant": GraphEmigrant,
-        "/electricity-consumption-stats_internet_population": GraphInternetPopulation   
+        "/electricity-consumption-stats_internet_population": GraphInternetPopulation,
+        "/electricity-consumption-stats_api_externa": GraphVuelo,
+        "/electricity-consumption-stats_api_externa2": GraphCovid
     };
 </script>
 
