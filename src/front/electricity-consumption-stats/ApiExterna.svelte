@@ -4,64 +4,64 @@
     import {pop} from "svelte-spa-router";
     const delay = ms => new Promise(res => setTimeout(res, ms));
     
-    let Assists = [];
-    let Turnovers = [];
+    let Viewers = [];
+    let Channels = [];
     let ejeX = [];
     async function getData(){
         const options = {
             method: "GET",
             headers: {
-                "X-RapidAPI-Host": "api-football-v1.p.rapidapi.com",
+                "X-RapidAPI-Host": "twitch-game-popularity.p.rapidapi.com",
                 "X-RapidAPI-Key": "e84361b17bmsh9f691ab3194f15ep1ce792jsn82c3dafa3fe2"
             }
         };
-        let res = await fetch("https://api-football-v1.p.rapidapi.com/v3/fixtures/statistics",options);
+        let res = await fetch("https://twitch-game-popularity.p.rapidapi.com/game?name=League%20of%20Legends&year=2020&month=08",options);
         await delay(2000);
         if (res.ok) {
             let json = await res.json();
             for(let i = 0; i<10; i++){
                 
                 //Nombre
-                ejeX.push(json[i].team.name);
-                //Dato de partidos ganados
-                Assists.push(json[i].totalAssistsMade);
-                //Dato de partidos perdidos
-                Turnovers.push(json[i].totalTurnovers);
+                ejeX.push(json[i].Game);
+                //Dato de viewers
+                Viewers.push(json[i].Peak_viewers);
+                //Dato de canales
+                Channels.push(json[i].Peak_channels);
     
             }
             loadGraph();
         }else{
             ejeX = [];
-            Assists = [];
-            Turnovers = [];
+            Viewers = [];
+            Channels = [];
             loadGraph();
         }
     }
     
     async function loadGraph(){
         var chart = bb.generate({
-            bindto: "#barChart",
-            axis: {
-                x: {
-                type: "category",
-                categories: ejeX
-                }
-            },
+            bindto: "#chart",
+            
             data: {
-                type: "bar",
-                labels:true,
                 columns: [
-                    Assists,
-                    Turnovers
-                ]
-            },
-            bar: {
-                width: {
-                ratio: 0.5
+                Viewers,
+                    Channels
+                ],
+                types: {
+                Viewers: "line",
+                Channels: "area-spline"
+                },
+                labels:true,
+            
+                colors: {
+                Viewers: "red",
+                Channels: "green"
                 }
             }
-        });
-    }
+            
+            });
+        }
+    
     
     onMount(getData);
     
